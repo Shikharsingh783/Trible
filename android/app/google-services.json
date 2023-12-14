@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "707453952108",
+    "project_id": "trible-e52c6",
+    "storage_bucket": "trible-e52c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707453952108:android:b65450dc062af08538b849",
+        "android_client_info": {
+          "package_name": "com.example.trible"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707453952108-v1l4htnb01l3jg7lgs6fa69n22lv7u5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPClM35nzBVXxxFZ5CUYhmRwkLeDk2OkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707453952108-v1l4htnb01l3jg7lgs6fa69n22lv7u5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
