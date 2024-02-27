@@ -1,19 +1,69 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/main.dart';
+import 'package:trible/pages/auth.dart';
 import 'package:trible/screens/NUS1.dart';
 import 'package:trible/screens/signin.dart';
 
-class signup extends StatelessWidget {
+class signup extends StatefulWidget {
   signup({super.key});
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
+  State<signup> createState() => _signupState();
+}
 
-  void _submitForm(BuildContext context){
-    if(_formKey.currentState!.validate()){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> NUS1()));
-    }
+class _signupState extends State<signup> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
+   final TextEditingController  _email = TextEditingController();
+  final TextEditingController  _password = TextEditingController();
+
+  createUserWithEmailAndPassword()async{
+    try {
+      setState(() {
+        isLoading = true;
+      });
+   await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: _email.text,
+    password: _password.text,
+  );
+  setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("User Registered",style: TextStyle(color: Colors.black),),backgroundColor: Color.fromRGBO(0, 244, 145, 1),),
+    );
+       Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => NUS1()), // Replace HomeScreen with your actual home screen class
+    );
+} on FirebaseAuthException catch (e) {
+  setState(() {
+        isLoading = false;
+      });
+  if (e.code == 'weak-password') {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("The password provided is too weak."))
+    );
+  } else if (e.code == 'email-already-in-use') {
+     return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("A account already exists for that email."))
+    );
   }
-  
+} catch (e) {
+  setState(() {
+        isLoading = false;
+      });
+  print(e);
+}
+  }
+
+  // void _submitForm(BuildContext context){
+  //   if(_formKey.currentState!.validate()){
+  //     Navigator.push(context, MaterialPageRoute(builder: (context)=> NUS1()));
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -49,6 +99,7 @@ class signup extends StatelessWidget {
                     width: 380,
                     
                     child: TextFormField(
+                      controller: _email,
                       validator: (value){
                         if(value!.isEmpty){
                           return "please enter a email";
@@ -80,6 +131,7 @@ class signup extends StatelessWidget {
                   
                   width: 380,
                   child: TextFormField(
+                    controller: _password,
                     validator: (value){
                       if(value!.isEmpty){
                         return "Password cannot be empty";
@@ -103,16 +155,19 @@ class signup extends StatelessWidget {
               children:[ 
                 
                 GestureDetector(
-                  onTap: () =>
-                   _submitForm(context)
+                  onTap: (){
+                     if(_formKey.currentState!.validate()){
+                      createUserWithEmailAndPassword();
+    }
+                  }
                   ,
                   child: Container(
                   height: 69,
                   width: 306,
                   decoration: BoxDecoration(color: const Color.fromRGBO(0, 224, 145, 1),borderRadius: BorderRadius.circular(5)),
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.center,
-                    child: Text("Create Account",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),)),
+                    child:isLoading? Center(child: const CircularProgressIndicator(color: Colors.black,)): const Text("Create Account",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),)),
                           ),
                 ),
               
@@ -125,14 +180,17 @@ class signup extends StatelessWidget {
               color: Colors.white,
             ),
             const SizedBox(height:40),
-            Container(
-              height: 69,
-              width:306,
-              
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.white,width: 2)),
-              child: const Align(
-                alignment: Alignment.center,
-                child: Text("Continue with google",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),)),
+            GestureDetector(
+              onTap: () => AuthService().signInWithGoogle(),
+              child: Container(
+                height: 69,
+                width:306,
+                
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.white,width: 2)),
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text("Continue with google",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),)),
+              ),
             ),
             const SizedBox(height: 50,),
             GestureDetector(
