@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:trible/widgets/buy_page.dart';
+import 'package:trible/screens/home.dart';
 import 'package:trible/screens/splash.dart';
+import 'package:trible/widgets/service_page.dart';
 
 void main() async{
 
@@ -25,7 +28,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashPage(),
+      home: home()
+      // ServicePage(title: 'Website Development', community: 'School Community', i1: 'images/S1.png', s1: 'Responsive web design',)
     );
   }
 }

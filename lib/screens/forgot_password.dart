@@ -42,6 +42,7 @@ void initState() {
                       SizedBox(
                         width: 380,
                         child: TextFormField(
+                          controller: _email,
                           validator:(value){
                             if(value!. isEmpty){
                               return "Email cannot be empty";
