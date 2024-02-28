@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trible/screens/settings_page.dart';
 import 'package:trible/screens/signin.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -30,22 +31,26 @@ class MyDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("H O M E"),
-                  leading: const Icon(Icons.home),
+                  title:Text("H O M E",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                  leading: Icon(Icons.home,color: Theme.of(context).colorScheme.secondary,),
                   onTap: () => Navigator.pop(context),
                 ),
               ),
               //settings tile
               Padding(
-                padding: const EdgeInsets.only(left: 25.0),
+                padding: EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("S E T T I N G S"),
-                  leading: const Icon(Icons.settings),
-                  // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>const SettingsPage())),
+                  title: Text("S E T T I N G S",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                  leading: Icon(Icons.settings,color:Theme.of(context).colorScheme.secondary ,),
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>const SettingsPage())),
                 ),
               ),
             ],
           ),
+
+          //mode tile
+
+
           // Log Out tile
           Expanded(
             child: Column(
@@ -54,7 +59,7 @@ class MyDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 25,bottom:80),
                   child: ListTile(
-                    title: Text("L O G O U T"),
+                    title: Text("L O G O U T",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
                     leading: Icon(Icons.logout, color: Colors.red,),
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();

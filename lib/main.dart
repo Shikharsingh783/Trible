@@ -1,18 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trible/themes/theme_provider.dart';
 import 'package:trible/widgets/buy_page.dart';
 import 'package:trible/screens/home.dart';
 import 'package:trible/screens/splash.dart';
 import 'package:trible/widgets/service_page.dart';
 
-void main() async{
-
-   WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   
   // Initialize Firebase
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(), // Provide your ThemeProvider here
+      child: const MyApp(),
+    ),
+  );
 }
+
 
 late Size mq;
 
@@ -24,11 +32,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: home()
+     theme: Provider.of<ThemeProvider>(context).themeData,
+      home: SplashPage()
       // ServicePage(title: 'Website Development', community: 'School Community', i1: 'images/S1.png', s1: 'Responsive web design',)
     );
   }

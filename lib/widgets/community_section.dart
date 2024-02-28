@@ -24,14 +24,14 @@ class Community extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(communiuty??"",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white),),
-                        Text(creator,style: TextStyle(fontSize: 16,fontWeight:FontWeight.w300,color: Colors.white))
+                        Text(communiuty??"",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color:Theme.of(context).colorScheme.secondary),),
+                        Text(creator,style: TextStyle(fontSize: 16,fontWeight:FontWeight.w300,color: Theme.of(context).colorScheme.secondary))
                       ],
                     ),
                     const Spacer(),
                     Padding(
                       padding: EdgeInsets.only(right: mq.width*.07),
-                      child: Icon(Icons.more_horiz,color: Colors.white,weight: 2,size: 30,),
+                      child: Icon(Icons.more_horiz,color: Theme.of(context).colorScheme.secondary,weight: 2,size: 30,),
                     ),
               
                   ],

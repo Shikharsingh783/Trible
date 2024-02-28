@@ -14,7 +14,7 @@ class start extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      backgroundColor: const Color.fromRGBO(30, 37, 40, 1),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: Column(
           children: [
