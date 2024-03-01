@@ -19,11 +19,7 @@ class MyDrawer extends StatelessWidget {
               //logo
               DrawerHeader(
                 child: Center(
-                  child: Icon(
-                    Icons.music_note,
-                    size: 40,
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                  ),
+                  child: Text("T  R  I  B  L  E",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 25,fontWeight:FontWeight.w700),),
                 ),
               ),
               const SizedBox(height: 10,),
@@ -33,12 +29,12 @@ class MyDrawer extends StatelessWidget {
                 child: ListTile(
                   title:Text("H O M E",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
                   leading: Icon(Icons.home,color: Theme.of(context).colorScheme.secondary,),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () =>Navigator.pop(context),
                 ),
               ),
               //settings tile
               Padding(
-                padding: EdgeInsets.only(left: 25.0),
+                padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
                   title: Text("S E T T I N G S",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
                   leading: Icon(Icons.settings,color:Theme.of(context).colorScheme.secondary ,),
@@ -49,6 +45,7 @@ class MyDrawer extends StatelessWidget {
           ),
 
           //mode tile
+          ListTile(),
 
 
           // Log Out tile
@@ -59,13 +56,13 @@ class MyDrawer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 25,bottom:80),
                   child: ListTile(
-                    title: Text("L O G O U T",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                    title: Text("L O G O U T",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.w500),),
                     leading: Icon(Icons.logout, color: Colors.red,),
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
                       print("log out");
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text("Logged out successfully!", style: TextStyle(color: Colors.black),),
                           backgroundColor: Colors.red,
                         ),

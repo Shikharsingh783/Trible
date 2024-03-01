@@ -1,11 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trible/themes/theme_provider.dart';
-import 'package:trible/widgets/buy_page.dart';
 import 'package:trible/screens/home.dart';
-import 'package:trible/screens/splash.dart';
-import 'package:trible/widgets/service_page.dart';
+import 'package:trible/themes/theme_provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +31,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
      theme: Provider.of<ThemeProvider>(context).themeData,
-      home: SplashPage()
+       home: home()
+      //ServiceCard(imagePath: "images/s1.png", service: "Responsive web design")
       // ServicePage(title: 'Website Development', community: 'School Community', i1: 'images/S1.png', s1: 'Responsive web design',)
     );
   }

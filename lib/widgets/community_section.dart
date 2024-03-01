@@ -2,11 +2,25 @@ import 'package:flutter/material.dart';
 
 late Size mq;
 
-class Community extends StatelessWidget {
+class Community extends StatefulWidget {
   final String? communiuty;
   final String creator;
   const Community({super.key, this.communiuty, required this.creator});
 
+  @override
+  State<Community> createState() => _CommunityState();
+}
+
+final List<String> items = [
+    'Item1',
+    'Item2',
+    'Item3',
+    'Item4',
+    'Item5',
+];
+ String? selectedValue;
+
+class _CommunityState extends State<Community> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -24,8 +38,8 @@ class Community extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(communiuty??"",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color:Theme.of(context).colorScheme.secondary),),
-                        Text(creator,style: TextStyle(fontSize: 16,fontWeight:FontWeight.w300,color: Theme.of(context).colorScheme.secondary))
+                        Text(widget.communiuty??"",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color:Theme.of(context).colorScheme.secondary),),
+                        Text(widget.creator,style: TextStyle(fontSize: 16,fontWeight:FontWeight.w300,color: Theme.of(context).colorScheme.secondary))
                       ],
                     ),
                     const Spacer(),

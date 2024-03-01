@@ -64,280 +64,284 @@ class ServicePage extends StatelessWidget {
           ),
           const SizedBox(height: 20,),
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                           boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              offset: Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
-                      ),
-                      width: 500,
-                      child: TextField(
-                        cursorColor: Colors.grey,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
-                          contentPadding: EdgeInsets.only(left: 20,),
-                          hintText: "Search",
-                          hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.4),fontSize: 18,fontWeight: FontWeight.w500)
+            child: SingleChildScrollView(
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                             boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                        ),
+                        width: 500,
+                        child: TextField(
+                          cursorColor: Colors.grey,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                            contentPadding: EdgeInsets.only(left: 20,),
+                            hintText: "Search",
+                            hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.4),fontSize: 18,fontWeight: FontWeight.w500)
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10,),
-               
-                 Row(
-                   children: [
-                     Padding(
-                       padding: EdgeInsets.only(left:mq.width*.07),
-                       child: GestureDetector(
-                        onTap:tap1,
-                         child: Container(
-                             decoration: BoxDecoration(
-                               color: Colors.white,
-                                boxShadow: [
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.4),
-                               spreadRadius: 1,
-                               blurRadius: 7,
-                               offset: const Offset(0, 3), // changes position of shadow
+                    SizedBox(height: 10,),
+                 
+                   Row(
+                     children: [
+                       Padding(
+                         padding: EdgeInsets.only(left:mq.width*.07),
+                         child: GestureDetector(
+                          onTap:tap1,
+                           child: Container(
+                               decoration: BoxDecoration(
+                                 color: Colors.white,
+                                  boxShadow: [
+                               BoxShadow(
+                                 color: Colors.grey.withOpacity(0.4),
+                                 spreadRadius: 1,
+                                 blurRadius: 7,
+                                 offset: const Offset(0, 3), // changes position of shadow
+                               ),
+                             ],
+                                 borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
+                                 border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
+                               width: 169,
+                               height: 202,
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                              
+                                 children: [
+                                   Padding(
+                                     padding: const EdgeInsets.all(2.0),
+                                     child: Image.asset(i1),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.only(right:5,left: 2),
+                                     child: Text(s1,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
+                                   ),
+                                              
+                                 ],
+                               ),
                              ),
-                           ],
-                               borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
-                               border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
-                             width: 169,
-                             height: 202,
-                             child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                                            
-                               children: [
-                                 Padding(
-                                   padding: const EdgeInsets.all(2.0),
-                                   child: Image.asset(i1),
-                                 ),
-                                 Padding(
-                                   padding: const EdgeInsets.only(right:5,left: 2),
-                                   child: Text(s1,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
-                                 ),
-                                            
-                               ],
-                             ),
-                           ),
+                         ),
                        ),
-                     ),
-                    const SizedBox(width: 30,),
-                    if(i2 !=null && s2 !=null)
-                     GestureDetector(
-                      onTap: tap2,
-                       child: Container(
-                                         decoration: BoxDecoration(
-                                           color: Colors.white,
-                       boxShadow: [
-                                         BoxShadow(
-                                           color: Colors.grey.withOpacity(0.4),
-                                           spreadRadius: 1,
-                                           blurRadius: 7,
-                                           offset: const Offset(0, 3), // changes position of shadow
-                                         ),
-                                           ],
-                                           borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
-                                           border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
-                                         width: 169,
-                                         height: 202,
-                                         child: Column(
-                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                           
-                                         
-                                           children: [
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Image.asset(i2!),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right:5,left: 2),
-                          child: Text(s2!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
-                        ),
-                                         
-                                           ],
-                                         ),
+                      const SizedBox(width: 30,),
+                      if(i2 !=null && s2 !=null)
+                       GestureDetector(
+                        onTap: tap2,
+                         child: Container(
+                                           decoration: BoxDecoration(
+                                             color: Colors.white,
+                         boxShadow: [
+                                           BoxShadow(
+                                             color: Colors.grey.withOpacity(0.4),
+                                             spreadRadius: 1,
+                                             blurRadius: 7,
+                                             offset: const Offset(0, 3), // changes position of shadow
                                            ),
-                     )
-                   ],
-                 ),
-                 const SizedBox(height: 20,),
-                  Row(
-                   children: [
-                     if(i3 !=null && s3 !=null)
-                     Padding(
-                       padding: EdgeInsets.only(left:mq.width*.07),
-                      
-                       child: GestureDetector(
-                        onTap: tap3,
-                         child: Container(
-                             decoration: BoxDecoration(
-                               color: Colors.white,
-                                boxShadow: [
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.4),
-                               spreadRadius: 1,
-                               blurRadius: 7,
-                               offset: const Offset(0, 3), // changes position of shadow
-                             ),
-                           ],
-                               borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
-                               border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
-                             width: 169,
-                             height: 202,
-                             child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                                              
-                               children: [
-                                 Padding(
-                                   padding: const EdgeInsets.all(2.0),
-                                   child: Image.asset(i3!),
-                                 ),
-                                 Padding(
-                                   padding: const EdgeInsets.only(right:5,left: 2),
-                                   child: Text(s3!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
-                                 ),
-                                              
-                               ],
-                             ),
-                           ),
-                       ),
-                     ),
-                    SizedBox(width: 30,),
-                    if(i4 !=null && s4 !=null)
-                     GestureDetector(
-                      onTap: tap4,
-                       child: Container(
-                                         decoration: BoxDecoration(
-                                           color: Colors.white,
-                       boxShadow: [
-                                         BoxShadow(
-                                           color: Colors.grey.withOpacity(0.4),
-                                           spreadRadius: 1,
-                                           blurRadius: 7,
-                                           offset: const Offset(0, 3), // changes position of shadow
-                                         ),
-                                           ],
-                                           borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
-                                           border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
-                                         width: 169,
-                                         height: 202,
-                                         child: Column(
-                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                             ],
+                                             borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
+                                             border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
+                                           width: 169,
+                                           height: 202,
+                                           child: Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             
                                            
-                                         
-                                           children: [
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Image.asset(i4!),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right:5,left: 2),
-                          child: Text(s4!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
-                        ),
-                                         
-                                           ],
-                                         ),
+                                             children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Image.asset(i2!),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right:5,left: 2),
+                            child: Text(s2!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
+                          ),
+                                           
+                                             ],
                                            ),
-                     )
-                   ],
-                 ),
-                 SizedBox(height: 20,),
-                  Row(
-                   children: [
-                     if(i5 !=null && s5 !=null)
-                     Padding(
-                       padding: EdgeInsets.only(left:mq.width*.07),
-                      
-                       child: GestureDetector(
-                        onTap: tap5,
-                         child: Container(
-                             decoration: BoxDecoration(
-                               color: Colors.white,
-                                boxShadow: [
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.4),
-                               spreadRadius: 1,
-                               blurRadius: 7,
-                               offset: const Offset(0, 3), // changes position of shadow
+                                             ),
+                       )
+                     ],
+                   ),
+                   const SizedBox(height: 20,),
+                    Row(
+                     children: [
+                       if(i3 !=null && s3 !=null)
+                       Padding(
+                         padding: EdgeInsets.only(left:mq.width*.07),
+                        
+                         child: GestureDetector(
+                          onTap: tap3,
+                           child: Container(
+                               decoration: BoxDecoration(
+                                 color: Colors.white,
+                                  boxShadow: [
+                               BoxShadow(
+                                 color: Colors.grey.withOpacity(0.4),
+                                 spreadRadius: 1,
+                                 blurRadius: 7,
+                                 offset: const Offset(0, 3), // changes position of shadow
+                               ),
+                             ],
+                                 borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
+                                 border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
+                               width: 169,
+                               height: 202,
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                                
+                                 children: [
+                                   Padding(
+                                     padding: const EdgeInsets.all(2.0),
+                                     child: Image.asset(i3!),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.only(right:5,left: 2),
+                                     child: Text(s3!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
+                                   ),
+                                                
+                                 ],
+                               ),
                              ),
-                           ],
-                               borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
-                               border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
-                             width: 169,
-                             height: 202,
-                             child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                                              
-                               children: [
-                                 Padding(
-                                   padding: const EdgeInsets.all(2.0),
-                                   child: Image.asset(i5!),
-                                 ),
-                                 Padding(
-                                   padding: const EdgeInsets.only(right:5,left: 2),
-                                   child: Text(s5!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
-                                 ),
-                                              
-                               ],
-                             ),
-                           ),
+                         ),
                        ),
-                     ),
-                    SizedBox(width: 30,),
-                    if(i6 !=null && s6 !=null)
-                     Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                     boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    spreadRadius: 1,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                    ],
-                    borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
-                    border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
-                  width: 169,
-                  height: 202,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(width: 30,),
+                      if(i4 !=null && s4 !=null)
+                       GestureDetector(
+                        onTap: tap4,
+                         child: Container(
+                                           decoration: BoxDecoration(
+                                             color: Colors.white,
+                         boxShadow: [
+                                           BoxShadow(
+                                             color: Colors.grey.withOpacity(0.4),
+                                             spreadRadius: 1,
+                                             blurRadius: 7,
+                                             offset: const Offset(0, 3), // changes position of shadow
+                                           ),
+                                             ],
+                                             borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
+                                             border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
+                                           width: 169,
+                                           height: 202,
+                                           child: Column(
+                                             crossAxisAlignment: CrossAxisAlignment.start,
+                                             
+                                           
+                                             children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Image.asset(i4!),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right:5,left: 2),
+                            child: Text(s4!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
+                          ),
+                                           
+                                             ],
+                                           ),
+                                             ),
+                       )
+                     ],
+                   ),
+                   SizedBox(height: 20,),
+                    Row(
+                     children: [
+                       if(i5 !=null && s5 !=null)
+                       Padding(
+                         padding: EdgeInsets.only(left:mq.width*.07),
+                        
+                         child: GestureDetector(
+                          onTap: tap5,
+                           child: Container(
+                               decoration: BoxDecoration(
+                                 color: Colors.white,
+                                  boxShadow: [
+                               BoxShadow(
+                                 color: Colors.grey.withOpacity(0.4),
+                                 spreadRadius: 1,
+                                 blurRadius: 7,
+                                 offset: const Offset(0, 3), // changes position of shadow
+                               ),
+                             ],
+                                 borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
+                                 border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
+                               width: 169,
+                               height: 202,
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                                
+                                 children: [
+                                   Padding(
+                                     padding: const EdgeInsets.all(2.0),
+                                     child: Image.asset(i5!),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.only(right:5,left: 2),
+                                     child: Text(s5!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
+                                   ),
+                                                
+                                 ],
+                               ),
+                             ),
+                         ),
+                       ),
+                      SizedBox(width: 30,),
+                      if(i6 !=null && s6 !=null)
+                       Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                       boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 1,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                      ],
+                      borderRadius: const BorderRadius.only(bottomLeft:Radius.circular(3),bottomRight: Radius.circular(3)),
+                      border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
+                    width: 169,
+                    height: 202,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      
                     
-                  
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Image.asset(i6!),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right:5,left: 2),
-                        child: Text(s6!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
-                      ),
-                  
-                    ],
-                  ),
-                    )
-                   ],
-                 ),
-                ],
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Image.asset(i6!),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right:5,left: 2),
+                          child: Text(s6!,style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500,color: Colors.black),),
+                        ),
+                    
+                      ],
+                    ),
+                      )
+                     ],
+                   ),
+                  //  Text("hello",style: TextStyle(fontSize: 30),)
+                  ],
+                ),
               ),
+            
             ),
           )
         ],

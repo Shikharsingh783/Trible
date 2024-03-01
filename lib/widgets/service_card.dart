@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ServiceCard extends StatelessWidget {
   final String imagePath;
@@ -34,6 +35,15 @@ class ServiceCard extends StatelessWidget {
             padding: const EdgeInsets.only(right:5,left: 2),
             child: Text(service,style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.black),),
           ),
+
+          RatingBar.builder(
+                            itemSize: 25,
+                            itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Color.fromRGBO(0, 224, 125, 1),
+                          ), onRatingUpdate: (rating) {
+                          
+                          },),
 
         ],
       ),

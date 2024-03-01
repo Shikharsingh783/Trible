@@ -82,9 +82,9 @@ class BuyPage extends StatelessWidget {
                           padding: EdgeInsets.only(left:mq.width*.28),
                           child: RatingBar.builder(
                             itemSize: 25,
-                            itemBuilder: (context, _) => const Icon(
+                            itemBuilder: (context, _) => Icon(
                             Icons.star,
-                            color: Color.fromRGBO(0, 224, 125, 1),
+                            color: Theme.of(context).colorScheme.primary
                           ), onRatingUpdate: (rating) {
                           
                           },),
