@@ -23,7 +23,7 @@ class _AuthPageState extends State<AuthPage> {
           if(snapshot.hasData){
             return home();
           }else{
-            return signin(); 
+            return signin(ontap: () {  },); 
           }
         }
       },

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/main.dart';
-import 'package:trible/pages/auth.dart';
+import 'package:trible/auth/auth.dart';
 import 'package:trible/screens/NUS1.dart';
 import 'package:trible/screens/signin.dart';
 
@@ -195,7 +195,7 @@ class _signupState extends State<signup> {
             const SizedBox(height: 50,),
             GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>signin()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>signin(ontap: () {  },)));
               },
               child: const Text("Already a user? Login",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: Colors.white,decoration: TextDecoration.underline,decorationColor: Colors.white),))
             ],

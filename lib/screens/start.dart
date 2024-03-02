@@ -32,7 +32,7 @@ class start extends StatelessWidget {
              const SizedBox(height: 180,),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => signin()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => signin(ontap: () {  },)));
                 },
                 child: Container(
                           height: 69,

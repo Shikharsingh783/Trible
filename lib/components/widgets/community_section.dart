@@ -3,22 +3,13 @@ import 'package:flutter/material.dart';
 late Size mq;
 
 class Community extends StatefulWidget {
-  final String? communiuty;
+  final String? community;
   final String creator;
-  const Community({super.key, this.communiuty, required this.creator});
+  const Community({super.key, this.community, required this.creator});
 
   @override
   State<Community> createState() => _CommunityState();
 }
-
-final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-];
- String? selectedValue;
 
 class _CommunityState extends State<Community> {
   @override
@@ -32,13 +23,15 @@ class _CommunityState extends State<Community> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left:mq.width*.05),
-                      child: Icon(Icons.keyboard_arrow_down_sharp,color: Colors.white,size: 30,),
+                      child: GestureDetector(
+                        // onTap:()=> MyDropDown(),
+                        child: const Icon(Icons.keyboard_arrow_down_sharp,color: Colors.white,size: 30,)),
                     ),
-                    SizedBox(width: 30,),
+                    const SizedBox(width: 30,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.communiuty??"",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color:Theme.of(context).colorScheme.secondary),),
+                        Text(widget.community??"",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color:Theme.of(context).colorScheme.secondary),), 
                         Text(widget.creator,style: TextStyle(fontSize: 16,fontWeight:FontWeight.w300,color: Theme.of(context).colorScheme.secondary))
                       ],
                     ),
@@ -50,8 +43,8 @@ class _CommunityState extends State<Community> {
               
                   ],
                 ),
-                       SizedBox(height: 12,),
-                Divider(
+                       const SizedBox(height: 12,),
+                const Divider(
                   indent: 0,
                   endIndent: 0,
                   thickness: 1,color: Colors.black,

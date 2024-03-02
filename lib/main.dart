@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/screens/home.dart';
+import 'package:trible/screens/splash.dart';
 import 'package:trible/themes/theme_provider.dart';
 
 

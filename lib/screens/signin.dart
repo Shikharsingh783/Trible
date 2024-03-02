@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/main.dart';
-import 'package:trible/pages/auth.dart';
+import 'package:trible/auth/auth.dart';
 import 'package:trible/screens/forgot_password.dart';
 import 'package:trible/screens/home.dart';
 import 'package:trible/screens/signup.dart';
 
 
 class signin extends StatefulWidget {
-  signin({super.key});
+  signin({super.key, required void Function() ontap});
 
   @override
   State<signin> createState() => _signinState();

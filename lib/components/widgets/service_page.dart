@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trible/widgets/buy_page.dart';
+import 'package:trible/components/widgets/buy_page.dart';
 
 late Size mq;
 

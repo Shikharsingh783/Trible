@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/components/my_drawer.dart';
-import 'package:trible/widgets/buy_page.dart';
-import 'package:trible/widgets/community_section.dart';
-import 'package:trible/widgets/service_page.dart';
+import 'package:trible/components/my_drop_down.dart';
+import 'package:trible/components/widgets/buy_page.dart';
+import 'package:trible/components/widgets/service_page.dart';
 
 class home extends StatelessWidget {
   home({Key? key});
@@ -14,28 +14,11 @@ class home extends StatelessWidget {
     final mq = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor:Theme.of(context).colorScheme.background,
-    //   appBar: AppBar(
-    //     automaticallyImplyLeading: false,
-    //     backgroundColor: Colors.transparent,
-    //     elevation: 0,
-    // //  actions: [
-    // //       Padding(
-    // //         padding: const EdgeInsets.only(right: 19.0,top: 30
-    // //         ),
-    // //         child: IconButton(
-    // //           icon: Icon(Icons.menu),
-    // //           onPressed: () {
-    // //             Scaffold.of(context).openEndDrawer();
-    // //           },
-    // //         ),
-    // //       )
-    // //     ],
-        
-    //   ),
     
       endDrawer: MyDrawer(),
       body: Stack(
-        children: [SingleChildScrollView(
+        children: [
+          SingleChildScrollView(
           child: Padding(
          padding: const EdgeInsets.only(top: 110),
             child: Column(
@@ -74,26 +57,6 @@ class home extends StatelessWidget {
                         }),
                        
                       
-                      
-                      //  IconButton(
-                      //              onPressed: () async {
-                      //                await FirebaseAuth.instance.signOut();
-                      //                print("log out");
-                      //                 ScaffoldMessenger.of(context).showSnackBar(
-                      //                  SnackBar(
-                      //   content: Text("Logged out successfully!",style: TextStyle(color: Colors.black),),
-                      //   backgroundColor: Colors.red,
-                      //                  ),
-                      //                );
-                      //                Navigator.of(context).pushReplacement(
-                      //                  MaterialPageRoute(builder: (context) => signin()),
-                      //                );
-                      //              },
-                      //              icon: Icon(
-                      //                Icons.logout,
-                      //                color: Colors.red,
-                      //              ),
-                      //            ),
                     ],
                   ),
                 ),
@@ -103,12 +66,18 @@ class home extends StatelessWidget {
                   endIndent: 0,
                   thickness: 1,color: Colors.white,
                 ),
-                const SizedBox(height: 10,),
-                const Community(communiuty: "School Community", creator: "@randomschool123"),
-                const Community(communiuty: "Hostel Community", creator: "@hostelblock24"),
-                Community(communiuty: "Office Space", creator: "@randomoffice123"),
-                Community(communiuty: "Friend Circle", creator: "@randomfriend123"),
-                Community(communiuty: "Random Community", creator: "@random"),
+                MyDropPage(),
+                MyDropPage(),
+                MyDropPage(),
+                MyDropPage(),
+                MyDropPage()
+                
+                // const Community(community: "School Community", creator: "@randomschool123"),
+                
+                // const Community(community: "Hostel Community", creator: "@hostelblock24"),
+                // Community(community: "Office Space", creator: "@randomoffice123"),
+                // Community(community: "Friend Circle", creator: "@randomfriend123"),
+                // Community(community: "Random Community", creator: "@random"),
                 
                
                 // Padding(

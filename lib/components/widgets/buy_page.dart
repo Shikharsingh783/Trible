@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:trible/screens/payment_page.dart';
 
 late Size mq;
 
@@ -123,11 +124,14 @@ class BuyPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left:mq.width*.32,top:mq.height*.01),
-                  child: Container(
-                    height: 51,
-                    width: 136,
-                    decoration: BoxDecoration(color: const Color.fromRGBO(0, 224, 145, 1),borderRadius: BorderRadius.circular(5)),
-                    child: const Center(child: Text("Hire",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),)),
+                  child: GestureDetector(
+                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage()));},
+                    child: Container(
+                      height: 51,
+                      width: 136,
+                      decoration: BoxDecoration(color: const Color.fromRGBO(0, 224, 145, 1),borderRadius: BorderRadius.circular(5)),
+                      child: const Center(child: Text("Hire",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),)),
+                    ),
                   ),
                 
                 ),

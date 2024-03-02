@@ -19,7 +19,7 @@ class MyDrawer extends StatelessWidget {
               //logo
               DrawerHeader(
                 child: Center(
-                  child: Text("T  R  I  B  L  E",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 25,fontWeight:FontWeight.w700),),
+                  child: Text("T  R  I  B  E  S",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 25,fontWeight:FontWeight.w700),),
                 ),
               ),
               const SizedBox(height: 10,),
@@ -68,7 +68,7 @@ class MyDrawer extends StatelessWidget {
                         ),
                       );
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => signin()),
+                        MaterialPageRoute(builder: (context) => signin(ontap: () {  },)),
                       );
                     },
                   ),
