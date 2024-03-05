@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trible/components/widgets/buy_page.dart';
 
 late Size mq;
 
@@ -341,9 +340,8 @@ class ServicePage extends StatelessWidget {
                   ],
                 ),
               ),
-            
             ),
-          )
+          ),
         ],
       ),
     );

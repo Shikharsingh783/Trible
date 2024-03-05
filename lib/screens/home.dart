@@ -52,7 +52,7 @@ class home extends StatelessWidget {
                              padding: const EdgeInsets.only(left:140),
                              child: IconButton( onPressed: () {
                                           Scaffold.of(context).openEndDrawer();
-                                        }, icon: Icon(Icons.more_horiz_rounded,color: Colors.white,size: 35,)),
+                                        }, icon: Icon(Icons.more_horiz_rounded,color: Theme.of(context).colorScheme.secondary,size: 35,)),
                            );
                         }),
                        
@@ -66,11 +66,11 @@ class home extends StatelessWidget {
                   endIndent: 0,
                   thickness: 1,color: Colors.white,
                 ),
-                MyDropPage(),
-                MyDropPage(),
-                MyDropPage(),
-                MyDropPage(),
-                MyDropPage()
+               MyDropPage(),
+               MyDropPage(),
+               MyDropPage(),
+               MyDropPage(),
+               MyDropPage(),
                 
                 // const Community(community: "School Community", creator: "@randomschool123"),
                 
