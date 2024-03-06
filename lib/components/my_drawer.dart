@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/screens/settings_page.dart';
-import 'package:trible/screens/signin.dart';
 
 class MyDrawer extends StatelessWidget {
   MyDrawer({Key? key}) : super(key: key);
