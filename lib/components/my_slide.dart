@@ -1,9 +1,9 @@
-import 'dart:convert';
+
 
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+
 import 'package:slide_to_act/slide_to_act.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:trible/api/stripe_service.dart';
 
 class MySlide extends StatefulWidget {

@@ -1,25 +1,16 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class MyDropPage extends StatefulWidget {
-  const MyDropPage({super.key});
+  final List<String> items; // Define items as a parameter
+
+  const MyDropPage({Key? key, required this.items}) : super(key: key); // Pass items to the constructor
 
   @override
   State<MyDropPage> createState() => _MyDropPageState();
 }
 
 class _MyDropPageState extends State<MyDropPage> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
   String? selectedValue;
 
   @override
@@ -47,7 +38,7 @@ class _MyDropPageState extends State<MyDropPage> {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Column(
@@ -75,7 +66,7 @@ class _MyDropPageState extends State<MyDropPage> {
                 )
               ],
             ),
-            items: items
+            items: widget.items // Use widget.items instead of items
                 .map((String item) => DropdownMenuItem<String>(
                       value: item,
                       child: Text(

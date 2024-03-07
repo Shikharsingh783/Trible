@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/screens/home.dart';
-import 'package:trible/screens/splash.dart';
 import 'package:trible/themes/theme_provider.dart';
 
 
@@ -16,7 +15,7 @@ void main() async {
   
   runApp(
     ChangeNotifierProvider(
-      create: (context) => ThemeProvider(), // Provide your ThemeProvider here
+      create: (context) => ThemeProvider(),
       child: const MyApp(),
     ),
   );

@@ -18,7 +18,7 @@ class MyDrawer extends StatelessWidget {
           Column(
             children: [
               //logo
-              DrawerHeader(
+              DrawerHeader(                                      
                 child: Center(
                   child: Text(
                     "T  R  I  B  E  S",

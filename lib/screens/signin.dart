@@ -42,7 +42,7 @@ void initState() {
         isLoading = false;
       });
        ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Sign-in successful",style: TextStyle(color: Colors.black),),backgroundColor: Colors.green,),
+      const SnackBar(content: Text("Sign-in successful",style: TextStyle(color: Colors.black),),backgroundColor: Colors.green,),
     );
       Navigator.push(
       context,
@@ -54,12 +54,12 @@ void initState() {
       });
   if (e.code == 'user-not-found') {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("No user found for that email"))
+      const SnackBar(content: Text("No user found for that email"))
     );
   } else if (e.code == 'wrong-password') {
      print("wrong password");
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("wrong password is provided"))
+      const SnackBar(content: Text("wrong password is provided"))
       
     );
   }
@@ -146,9 +146,9 @@ void initState() {
                     obscureText: _isSecurePassword,
                       decoration: InputDecoration(
                         suffixIcon: togglePassword(),
-                        errorStyle: TextStyle(color: Colors.yellow),
-                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 145, 1))),
-                        border: OutlineInputBorder(),filled: true,fillColor: Colors.white,),
+                        errorStyle: const TextStyle(color: Colors.yellow),
+                         focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 145, 1))),
+                        border: const OutlineInputBorder(),filled: true,fillColor: Colors.white,),
                     ),
                 ),
             ]),
@@ -219,7 +219,7 @@ void initState() {
       setState(() {
          _isSecurePassword =! _isSecurePassword;
       });
-    }, icon: _isSecurePassword?Icon(Icons.visibility):Icon(Icons.visibility_off),
+    }, icon: _isSecurePassword?const Icon(Icons.visibility):const Icon(Icons.visibility_off),
     color: Colors.black,
     );
 }

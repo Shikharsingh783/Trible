@@ -66,11 +66,11 @@ class home extends StatelessWidget {
                   endIndent: 0,
                   thickness: 1,color: Colors.white,
                 ),
-               MyDropPage(),
-               MyDropPage(),
-               MyDropPage(),
-               MyDropPage(),
-               MyDropPage(),
+               MyDropPage(items: ["Coding","Editing"],),
+               MyDropPage(items: ["Website Development","Search Engine Optimzation"],),
+               MyDropPage(items: ["FrontEnd Developmeent","BackEnd Development"],),
+               MyDropPage(items: ["Mobile App Development","UI Development"],),
+               MyDropPage(items: ["Social Media Management",""],),
                 
                 // const Community(community: "School Community", creator: "@randomschool123"),
                 
