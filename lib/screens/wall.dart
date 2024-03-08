@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/components/my_drawer.dart';
 import 'package:trible/components/my_list_tile.dart';
@@ -103,11 +104,11 @@ class HomePage extends StatelessWidget {
                 //get data from each post
                 String message = post['Message'];
                 String userEmail = post['UserEmail'];
-                // Timestamp timestamp = post['Timestamp'];
+                // Timestamp timestamp = post['Timetamp'];
           
                 //return as a list tile
       
-                return MyListTile(title: message, subtitle: userEmail);
+                return MyListTile(title: message, subtitle: userEmail, timestamp: null,);
               }));
              }
              )

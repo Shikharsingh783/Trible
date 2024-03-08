@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
      theme: Provider.of<ThemeProvider>(context).themeData,
-       home:SplashPage()
+       home:home()
       //ServiceCard(imagePath: "images/s1.png", service: "Responsive web design")
       // ServicePage(title: 'Website Development', community: 'School Community', i1: 'images/S1.png', s1: 'Responsive web design',)
     );
