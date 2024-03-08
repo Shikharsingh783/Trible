@@ -27,6 +27,7 @@ class _MyDropPageState extends State<MyDropPage> {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton2<String>(
+            
             isExpanded: true,
             hint: Row(
               children: [
@@ -68,15 +69,27 @@ class _MyDropPageState extends State<MyDropPage> {
             ),
             items: widget.items // Use widget.items instead of items
                 .map((String item) => DropdownMenuItem<String>(
+
                       value: item,
-                      child: Text(
-                        item,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.inversePrimary,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left:28),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 4,
+                              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                            ),
+                            const SizedBox(width: 40),
+                            Text(
+                              item,
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Theme.of(context).colorScheme.inversePrimary,
+                              ),
+                              overflow: TextOverflow.visible,
+                            ),
+                          ],
                         ),
-                        overflow: TextOverflow.visible,
                       ),
                     ))
                 .toList(),

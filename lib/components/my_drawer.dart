@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/screens/settings_page.dart';
+import 'package:trible/screens/wall.dart';
 
 class MyDrawer extends StatelessWidget {
   MyDrawer({Key? key}) : super(key: key);
@@ -58,6 +59,18 @@ class MyDrawer extends StatelessWidget {
             ],
           ),
 
+            Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: Text(
+                    "W A L L",
+                    style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                  ),
+                  leading: Icon(Icons.people_rounded, color: Theme.of(context).colorScheme.secondary,),
+                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));}
+                ),
+              ),
+
           // Log Out tile
           // Expanded(
           //   child: Column(
@@ -92,6 +105,7 @@ class MyDrawer extends StatelessWidget {
           //     ],
           //   ),
           // ),
+           
         ],
       ),
     );

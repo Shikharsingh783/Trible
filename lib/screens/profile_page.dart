@@ -1,23 +1,52 @@
-import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String? userName;
+
+  @override
+void initState() {
+  super.initState();
+  _fetchUserData();
+}
+
+  Future<void> _fetchUserData() async {
+  try {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("users").doc(userId).get();
+    if (userSnapshot.exists) {
+      setState(() {
+        userName = userSnapshot.get('name') ?? 'No Name';
+      });
+    } else {
+      setState(() {
+        userName = 'No Name';
+      });
+      print('Document does not exist');
+    }
+  } catch (e, stackTrace) {
+    print("Error fetching user data: $e\n$stackTrace");
+  }
+}
+
+
 
   Future<void> _launchURL(String url) async {
-  if (!await canLaunch(url)) {
-    throw 'Cannot launch url';
+    if (!await canLaunch(url)) {
+      throw 'Cannot launch url';
+    }
+    await launch(url);
   }
-  await launch(url);
-}
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     shape: BoxShape.circle,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
-                  child: Center(
+                  child: const Center(
                     child: FaIcon(
                       FontAwesomeIcons.user,
                       size: 80,
@@ -60,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -90,12 +119,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                SizedBox(width: 15),
-                  GestureDetector(
-                    onTap: () {
-                      _launchURL('https://github.com/Shikharsingh783');
-                    },
-                    child: Stack(
+                const SizedBox(width: 15),
+                GestureDetector(
+                  onTap: () {
+                    _launchURL('https://github.com/Shikharsingh783');
+                  },
+                  child: Stack(
                     alignment: Alignment.center,
                     children: [
                       Container(
@@ -114,17 +143,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 52,
                         ),
                       ),
-                    
-                    
                     ],
-                                    ),
                   ),
-                  SizedBox(width: 15),
-                  GestureDetector(
-                    onTap: () {
-                      _launchURL("https://www.linkedin.com/in/shikhar-singh1/");
-                    },
-                    child: Stack(
+                ),
+                const SizedBox(width: 15),
+                GestureDetector(
+                  onTap: () {
+                    _launchURL("https://www.linkedin.com/in/shikhar-singh1/");
+                  },
+                  child: Stack(
                     alignment: Alignment.center,
                     children: [
                       Container(
@@ -144,48 +171,53 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       SizedBox(width: 10,),
-                      
                     ],
-                                    ),
                   ),
-
+                ),
               ],
             ),
             SizedBox(height: 30,),
             Container(
-                      padding: EdgeInsets.all(16),
-                      margin: EdgeInsetsDirectional.all(25),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("N A M E :",style: TextStyle(fontWeight: FontWeight.bold),),
-                          ],
-                        ),
-                      ),
+              padding: EdgeInsets.all(16),
+              margin: EdgeInsetsDirectional.all(25),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(6.0),
+                child: Row(
+                  children: [
+                    Text("N A M E :", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Padding(
+                      padding: const EdgeInsets.only(left:25),
+                      child: Text(userName ?? '', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      margin: EdgeInsetsDirectional.only(start: 25,end: 25),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("E M A I L :",style: TextStyle(fontWeight: FontWeight.bold),),
-                          ],
-                        ),
-                      ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(16),
+              margin: EdgeInsetsDirectional.only(start: 25,end: 25),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(6.0),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("E M A I L :", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Padding(
+                      padding: const EdgeInsets.only(left:20),
+                      child: Text(FirebaseAuth.instance.currentUser!.email ?? '', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
