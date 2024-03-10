@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:trible/components/get_user_name.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,34 +14,25 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String? userName;
+
+
+  //document ids
+  List<String> docIds = [];
+
+  //get document ids
+  Future getDocId()async{
+    await FirebaseFirestore.instance.collection("users").get().then((snapshot)=> snapshot.docs.forEach((document){
+      print(document.reference);
+      docIds.add(document.reference.id);
+    }));
+  }
 
   @override
-void initState() {
-  super.initState();
-  _fetchUserData();
-}
-
-  Future<void> _fetchUserData() async {
-  try {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
-    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("users").doc(userId).get();
-    if (userSnapshot.exists) {
-      setState(() {
-        userName = userSnapshot.get('name') ?? 'No Name';
-      });
-    } else {
-      setState(() {
-        userName = 'No Name';
-      });
-      print('Document does not exist');
-    }
-  } catch (e, stackTrace) {
-    print("Error fetching user data: $e\n$stackTrace");
+  void initState(){
+    getDocId();
+    super.initState();
   }
-}
-
-
+  
 
   Future<void> _launchURL(String url) async {
     if (!await canLaunch(url)) {
@@ -191,7 +184,7 @@ void initState() {
                     Text("N A M E :", style: TextStyle(fontWeight: FontWeight.bold)),
                     Padding(
                       padding: const EdgeInsets.only(left:25),
-                      child: Text(userName ?? '', style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text("", style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -218,6 +211,35 @@ void initState() {
                 ),
               ),
             ),
+            Container(
+              padding: EdgeInsets.all(16),
+              margin: EdgeInsetsDirectional.all(25),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(6.0),
+                child: Row(
+                  children: [
+                    Text("S E R V I C E :", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Padding(
+                      padding: const EdgeInsets.only(left:25),
+                      child: Text("", style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Expanded(child: FutureBuilder(future: getDocId(), builder: (context,snapshot)
+            // {
+            //   return ListView.builder(itemBuilder: (context,index){
+            //     return ListTile(
+            //       title: GetUserName(documentId: docIds[index])
+            //     );
+            //   });
+            // }
+            // ))
           ],
         ),
       ),

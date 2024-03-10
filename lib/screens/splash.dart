@@ -30,6 +30,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Text(
           "Trible",
           style: TextStyle(
+            fontSize: 50,
             fontWeight: FontWeight.w700,
             color: Color.fromRGBO(0, 224, 145, 1),
             decoration: TextDecoration.none,

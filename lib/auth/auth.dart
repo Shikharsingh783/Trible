@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:trible/screens/home.dart';
-import 'package:trible/screens/signin.dart';
+import 'package:trible/screens/splash.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -23,7 +23,7 @@ class _AuthPageState extends State<AuthPage> {
           if(snapshot.hasData){
             return home();
           }else{
-            return signin(ontap: () {  },); 
+            return const SplashPage();
           }
         }
       },

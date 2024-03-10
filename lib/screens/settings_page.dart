@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/screens/profile_page.dart';
 import 'package:trible/screens/signin.dart';
+import 'package:trible/screens/start.dart';
 import 'package:trible/themes/theme_provider.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -128,9 +129,11 @@ class SettingsPage extends StatelessWidget {
                             backgroundColor: Colors.red,
                           ),
                         );
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => signin(ontap: () {  },)),
-                        );
+                        Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => start()), // Ensure to replace 'start()' with the appropriate start page widget.
+    (route) => false,
+  );
                               },
                               child: Container(
                                 height: 35,

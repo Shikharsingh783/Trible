@@ -2,8 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
-import 'package:trible/screens/home.dart';
-import 'package:trible/screens/splash.dart';
+import 'package:trible/auth/auth.dart';
 import 'package:trible/themes/theme_provider.dart';
 
 
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
      theme: Provider.of<ThemeProvider>(context).themeData,
-       home:SplashPage()
+       home:const AuthPage()
       //ServiceCard(imagePath: "images/s1.png", service: "Responsive web design")
       // ServicePage(title: 'Website Development', community: 'School Community', i1: 'images/S1.png', s1: 'Responsive web design',)
     );
