@@ -1,10 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/screens/NUS2.dart';
 
-class NUS1 extends StatelessWidget {
+class NUS1 extends StatefulWidget {
   NUS1({super.key});
 
+  @override
+  State<NUS1> createState() => _NUS1State();
+}
+
+class _NUS1State extends State<NUS1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController _firstName = TextEditingController();
+  TextEditingController _lastName = TextEditingController();
+  TextEditingController _service = TextEditingController();
+
+  @override
+  void dispose()
+  {
+    _firstName.dispose();
+    _lastName.dispose();
+    _service.dispose();
+    super.dispose();
+  }
+
+  //add user details
+
+
+  Future<void> addUserDetails(String firstName, String lastName, String service)async{
+    await FirebaseFirestore.instance.collection("users").add(
+      {
+        "firstName": firstName,
+        "lastName": lastName,
+        "service": service
+      }
+    );
+  }
+
 
   void _submitForm(BuildContext context){
     if(_formKey.currentState!.validate()){
@@ -39,13 +73,38 @@ class NUS1 extends StatelessWidget {
                ),
                const SizedBox(height:70),
                    Padding(
-                    padding: EdgeInsets.only(right:mq.width*.44),
-                    child: const Text("What is your name?",style: TextStyle(color: Colors.white,fontSize: 20),),
+                    padding: EdgeInsets.only(right:mq.width*.63),
+                    child: const Text("First Name",style: TextStyle(color: Colors.white,fontSize: 20),),
                   ),
                   const SizedBox(height: 5,),
                   SizedBox(
                     width: 380,
                     child: TextFormField(
+                      controller: _firstName,
+                      validator: (value){
+                        if(value!.isEmpty){
+                          return "Name cannot be empty";
+                        }
+                        return null;
+                      },
+                      cursorColor: Colors.black,
+                    decoration: const InputDecoration(
+                      errorStyle: TextStyle(color: Colors.yellow),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 145, 1))),
+                      border: OutlineInputBorder(),filled: true,fillColor: Colors.white,),
+                              ),
+                  ),
+                  const SizedBox(height: 25,),
+
+                    Padding(
+                    padding: EdgeInsets.only(right:mq.width*.64),
+                    child: const Text("Last Name",style: TextStyle(color: Colors.white,fontSize: 20),),
+                  ),
+                  const SizedBox(height: 5,),
+                  SizedBox(
+                    width: 380,
+                    child: TextFormField(
+                      controller: _lastName,
                       validator: (value){
                         if(value!.isEmpty){
                           return "Name cannot be empty";
@@ -69,6 +128,7 @@ class NUS1 extends StatelessWidget {
                     width: 380,
 
                     child: TextFormField(
+                      controller: _service,
                       validator: (value){
                         if(value!.isEmpty){
                           return "Work cannot be empty";
@@ -85,8 +145,14 @@ class NUS1 extends StatelessWidget {
                   const SizedBox(height: 60,),
                   Center(
                     child: GestureDetector(
-                      onTap: () =>
-                        _submitForm(context)
+                      onTap: () {
+                        _submitForm(context);
+
+                        //add user details
+                        addUserDetails(_firstName.text.trim(),
+                         _lastName.text.trim(),
+                          _service.text.trim(),);
+                      }
                       ,
                       child: Container(
                                 height: 69,

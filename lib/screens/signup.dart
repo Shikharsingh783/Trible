@@ -17,13 +17,11 @@ class _signupState extends State<signup> {
   bool isLoading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _nameController.dispose();
     super.dispose();
   }
 
@@ -51,8 +49,6 @@ class _signupState extends State<signup> {
         ),
       );
 
-      // Save user details to Firestore
-      await addUserDetails(_nameController.text.trim(), _emailController.text.trim());
       
 
       Navigator.push(
@@ -130,24 +126,8 @@ class _signupState extends State<signup> {
                 ),
               ),
               const SizedBox(height: 40),
-              Padding(
-                padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * .73),
-                child: const Text("Name", style: TextStyle(color: Colors.white, fontSize: 22)),
-              ),
-              SizedBox(
-                width: 380,
-                child: TextFormField(
-                  controller: _nameController,
-                  cursorColor: Colors.black,
-                  decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Colors.yellow),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 145, 1))),
-                    border: OutlineInputBorder(),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                ),
-              ),
+            
+             
               const SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * .74),
@@ -179,7 +159,7 @@ class _signupState extends State<signup> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Padding(
                 padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * .64),
                 child: const Text("Password", style: TextStyle(color: Colors.white, fontSize: 22)),
@@ -209,7 +189,7 @@ class _signupState extends State<signup> {
                   ),
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 60),
               GestureDetector(
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
