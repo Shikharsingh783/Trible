@@ -51,7 +51,6 @@ class ServicePage extends StatelessWidget {
                   children: [
                     Text(title1,style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.white),),
                     Text(community1,style: const TextStyle(color: Color.fromRGBO(0, 224, 145, 1),fontSize: 20,fontWeight: FontWeight.w300),),
-                   
                   ],
                 ),
               ),
@@ -80,7 +79,7 @@ class ServicePage extends StatelessWidget {
                                 color: Colors.grey.withOpacity(0.5),
                                 spreadRadius: 1,
                                 blurRadius: 5,
-                                offset: Offset(0, 3), // changes position of shadow
+                                offset: const Offset(0, 3), // changes position of shadow
                               ),
                             ],
                         ),
@@ -88,16 +87,16 @@ class ServicePage extends StatelessWidget {
                         child: TextField(
                           cursorColor: Colors.grey,
                           decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
-                            contentPadding: EdgeInsets.only(left: 20,),
+                            enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                            contentPadding: const EdgeInsets.only(left: 20,),
                             hintText: "Search",
-                            hintStyle: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.4),fontSize: 18,fontWeight: FontWeight.w500)
+                            hintStyle: const TextStyle(color: Color.fromRGBO(0, 0, 0, 0.4),fontSize: 18,fontWeight: FontWeight.w500)
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                  
                    Row(
                      children: [
@@ -219,7 +218,7 @@ class ServicePage extends StatelessWidget {
                              ),
                          ),
                        ),
-                      SizedBox(width: 30,),
+                      const SizedBox(width: 30,),
                       if(i4 !=null && s4 !=null)
                        GestureDetector(
                         onTap: tap4,
@@ -258,7 +257,7 @@ class ServicePage extends StatelessWidget {
                        )
                      ],
                    ),
-                   SizedBox(height: 20,),
+                   const SizedBox(height: 20,),
                     Row(
                      children: [
                        if(i5 !=null && s5 !=null)
@@ -300,7 +299,7 @@ class ServicePage extends StatelessWidget {
                              ),
                          ),
                        ),
-                      SizedBox(width: 30,),
+                      const SizedBox(width: 30,),
                       if(i6 !=null && s6 !=null)
                        Container(
                     decoration: BoxDecoration(

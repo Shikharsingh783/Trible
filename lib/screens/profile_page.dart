@@ -1,19 +1,29 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:trible/components/get_user_name.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:trible/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Uint8List? _image;
+
+  void selectImage()async{
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
 
 
   //document ids
@@ -66,20 +76,40 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: Center(
-                child: Container(
-                  height: 150,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: const Center(
-                    child: FaIcon(
-                      FontAwesomeIcons.user,
-                      size: 80,
+                child: Stack(
+                  children: [
+                   
+                    _image != null?
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundImage: MemoryImage(_image!),
+                    ):
+                    const CircleAvatar(
+                      radius: 70,
+                      backgroundColor: Colors.white,
                     ),
-                  ),
-                ),
+                  Positioned(
+                    bottom: 8,
+                    right: 8,
+                    child: Container( 
+                      height: 30,
+                      width: 30,
+                       decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).colorScheme.background,
+                      ),
+                      child: Center(child: GestureDetector(
+                        onTap: () {
+                          selectImage();
+                        },
+                        child: FaIcon(FontAwesomeIcons.camera,color: Theme.of(context).colorScheme.secondary,size: 17,))),
+                      ),
+                  )
+                  // const Positioned(
+                  //   bottom: 9,
+                  //   right: 9,
+                  //   child: FaIcon(FontAwesomeIcons.camera,color: Colors.grey,))
+          ]),
               ),
             ),
             const SizedBox(height: 25,),
@@ -150,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         height: 50,
                         width: 50,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
                         ),
@@ -163,27 +193,27 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 40,
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
             Container(
-              padding: EdgeInsets.all(16),
-              margin: EdgeInsetsDirectional.all(25),
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsetsDirectional.all(25),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.all(6.0),
                 child: Row(
                   children: [
                     Text("N A M E :", style: TextStyle(fontWeight: FontWeight.bold)),
                     Padding(
-                      padding: const EdgeInsets.only(left:25),
+                      padding: EdgeInsets.only(left:25),
                       child: Text("", style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
@@ -191,40 +221,40 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
-              margin: EdgeInsetsDirectional.only(start: 25,end: 25),
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsetsDirectional.only(start: 25,end: 25),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Padding(
-                padding: EdgeInsets.all(6.0),
+                padding: const EdgeInsets.all(6.0),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("E M A I L :", style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text("E M A I L :", style: TextStyle(fontWeight: FontWeight.bold)),
                     Padding(
                       padding: const EdgeInsets.only(left:20),
-                      child: Text(FirebaseAuth.instance.currentUser!.email ?? '', style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text(FirebaseAuth.instance.currentUser!.email ?? '', style: const TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.all(16),
-              margin: EdgeInsetsDirectional.all(25),
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsetsDirectional.all(25),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.all(6.0),
                 child: Row(
                   children: [
                     Text("S E R V I C E :", style: TextStyle(fontWeight: FontWeight.bold)),
                     Padding(
-                      padding: const EdgeInsets.only(left:25),
+                      padding: EdgeInsets.only(left:25),
                       child: Text("", style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
