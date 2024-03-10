@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:trible/components/my_drawer.dart';
 import 'package:trible/components/my_list_tile.dart';
 import 'package:trible/components/my_post_button.dart';
 import 'package:trible/components/my_textfeild.dart';
@@ -48,7 +46,7 @@ class HomePage extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.transparent,
           foregroundColor: Theme.of(context).colorScheme.inversePrimary  ,
-          title: Text("W A L L",style: TextStyle(color:Theme.of(context).colorScheme.secondary ),),
+          title: Text("W  A  L  L",style: TextStyle(color:Theme.of(context).colorScheme.secondary ),),
          
         ),
         // drawer: MyDrawer(),
@@ -87,7 +85,7 @@ class HomePage extends StatelessWidget {
               //no data?
               if(snapshot.data == null || posts.isEmpty){
                 return Center(
-                  child: Padding(padding: EdgeInsets.all(25),
+                  child: Padding(padding: const EdgeInsets.all(25),
                   child: Text("No post.. Post Something!",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
                   ),
                 );

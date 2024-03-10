@@ -59,7 +59,7 @@ void initState() {
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           automaticallyImplyLeading: false, // Disable default leading icon
-          title: const Text("P R O F I L E"),
+          title: const Text("P  R  O  F  I  L  E"),
           leading: GestureDetector(
             onTap: () {
               // Handle leading icon tap here
@@ -103,7 +103,7 @@ void initState() {
                       Container(
                         height: 50,
                         width: 50,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
                         ),
@@ -130,7 +130,7 @@ void initState() {
                       Container(
                         height: 50,
                         width: 50,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
                         ),

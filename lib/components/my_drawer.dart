@@ -19,7 +19,7 @@ class MyDrawer extends StatelessWidget {
           Column(
             children: [
               //logo
-              DrawerHeader(                                      
+              DrawerHeader(                                
                 child: Center(
                   child: Text(
                     "T  R  I  B  E  S",
@@ -31,7 +31,7 @@ class MyDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 10),
               //home tile
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),

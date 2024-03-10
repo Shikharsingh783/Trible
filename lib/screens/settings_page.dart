@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("S E T T I N G S"),
+          title: const Text("S  E  T  T  I  N  G  S"),
            leading: GestureDetector(
             onTap: () {
               // Handle leading icon tap here

@@ -12,7 +12,7 @@ class Forgotpassword extends StatefulWidget {
 class _ForgotpasswordState extends State<Forgotpassword> {
   final auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   final TextEditingController  _email = TextEditingController();
+  final TextEditingController  _email = TextEditingController();
 
    @override
 void initState() {
