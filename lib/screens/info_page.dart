@@ -2,40 +2,39 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:trible/screens/NUS2.dart';
-import 'package:trible/screens/info_page.dart';
 
-class NUS1 extends StatefulWidget {
-  NUS1({super.key});
+class InfoPage extends StatefulWidget {
+  InfoPage({super.key});
 
   @override
-  State<NUS1> createState() => _NUS1State();
+  State<InfoPage> createState() => _NUS1State();
 }
 
-class _NUS1State extends State<NUS1> {
+class _NUS1State extends State<InfoPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController _firstName = TextEditingController();
-  TextEditingController _lastName = TextEditingController();
-  TextEditingController _service = TextEditingController();
+  TextEditingController _twitter = TextEditingController();
+  TextEditingController _github = TextEditingController();
+  TextEditingController _linkedin = TextEditingController();
 
   @override
   void dispose()
   {
-    _firstName.dispose();
-    _lastName.dispose();
-    _service.dispose();
+    _twitter.dispose();
+    _github.dispose();
+    _linkedin.dispose();
     super.dispose();
   }
 
   //add user details
 
 
-  Future<void> addUserDetails(String firstName, String lastName, String service)async{
+  Future<void> addUserDetails(String twitter, String github, String linkedin)async{
     await FirebaseFirestore.instance.collection("users").add(
       {
-        "firstName": firstName,
-        "lastName": lastName,
-        "service": service
+        "twitter": twitter,
+        "github": github,
+        "linkedin": linkedin
       }
     );
   }
@@ -43,7 +42,7 @@ class _NUS1State extends State<NUS1> {
 
   void _submitForm(BuildContext context){
     if(_formKey.currentState!.validate()){
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>InfoPage()),(route)=>false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NUS2()),(route)=>false);
     }
   }
 
@@ -74,17 +73,17 @@ class _NUS1State extends State<NUS1> {
                ),
                const SizedBox(height:70),
                    Padding(
-                    padding: EdgeInsets.only(right:mq.width*.63),
-                    child: const Text("First Name",style: TextStyle(color: Colors.white,fontSize: 20),),
+                    padding: EdgeInsets.only(right:mq.width*.56),
+                    child: const Text("Twitter Profile",style: TextStyle(color: Colors.white,fontSize: 20),),
                   ),
                   const SizedBox(height: 5,),
                   SizedBox(
                     width: 380,
                     child: TextFormField(
-                      controller: _firstName,
+                      controller: _twitter,
                       validator: (value){
                         if(value!.isEmpty){
-                          return "Name cannot be empty";
+                          return "Profile cannot be empty";
                         }
                         return null;
                       },
@@ -96,19 +95,19 @@ class _NUS1State extends State<NUS1> {
                               ),
                   ),
                   const SizedBox(height: 25,),
-    
+
                     Padding(
-                    padding: EdgeInsets.only(right:mq.width*.64),
-                    child: const Text("Last Name",style: TextStyle(color: Colors.white,fontSize: 20),),
+                    padding: EdgeInsets.only(right:mq.width*.56),
+                    child: const Text("Github Profile",style: TextStyle(color: Colors.white,fontSize: 20),),
                   ),
                   const SizedBox(height: 5,),
                   SizedBox(
                     width: 380,
                     child: TextFormField(
-                      controller: _lastName,
+                      controller: _github,
                       validator: (value){
                         if(value!.isEmpty){
-                          return "Name cannot be empty";
+                          return "Profile cannot be empty";
                         }
                         return null;
                       },
@@ -121,18 +120,18 @@ class _NUS1State extends State<NUS1> {
                   ),
                   const SizedBox(height: 25,),
                    Padding(
-                    padding: EdgeInsets.only(right:mq.width*.5),
-                    child: const Text("What do you do?",style: TextStyle(color: Colors.white,fontSize: 20),),
+                    padding: EdgeInsets.only(right:mq.width*.52),
+                    child: const Text("LinkedIn Profile",style: TextStyle(color: Colors.white,fontSize: 20),),
                   ),
                   const SizedBox(height: 5,),
                   SizedBox(
                     width: 380,
-    
+
                     child: TextFormField(
-                      controller: _service,
+                      controller: _linkedin,
                       validator: (value){
                         if(value!.isEmpty){
-                          return "Work cannot be empty";
+                          return "Profile cannot be empty";
                         }
                         return null;
                       },
@@ -148,11 +147,11 @@ class _NUS1State extends State<NUS1> {
                     child: GestureDetector(
                       onTap: () {
                         _submitForm(context);
-    
+
                         //add user details
-                        addUserDetails(_firstName.text.trim(),
-                         _lastName.text.trim(),
-                          _service.text.trim(),);
+                        addUserDetails(_twitter.text.trim(),
+                         _github.text.trim(),
+                          _linkedin.text.trim(),);
                       }
                       ,
                       child: Container(
@@ -165,6 +164,12 @@ class _NUS1State extends State<NUS1> {
                               ),
                     ),
                   ),
+                  SizedBox(height: 30),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NUS2()),(route)=>false);
+                    },
+                    child: Text("Skip, set up later",style: TextStyle(fontSize: 16,color: Theme.of(context).colorScheme.secondary,decoration: TextDecoration.underline,decorationColor: Theme.of(context).colorScheme.secondary),))
             ],
           ),
         ),

@@ -80,7 +80,7 @@ void _submitfrom(BuildContext context){
                   const SizedBox(height: 25,),
                    GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> home()));
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> home()),(route)=>false);
                     },
                      child: Container(
                                    height: 69,

@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
               DrawerHeader(                                
                 child: Center(
                   child: Text(
-                    "T  R  I  B  E  S",
+                    "T  R  I  B  L  E",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 25,
