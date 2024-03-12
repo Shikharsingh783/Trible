@@ -34,17 +34,17 @@ class _MySlideState extends State<MySlide> {
               'qty': 1
             }
           ];
-          await StripeService.stripePaymentCheckout(items, 4, context, mounted,
-          onSuccess: (){
-            print("SUCCESS");
-          },
-          onCancel:(){
-            print("Cancel");
-          } ,
-          onError: (e){
-            print("Error"+ e.toString());
-          }
-          );
+          // await StripeService.stripePaymentCheckout(items, 4, context, mounted,
+          // onSuccess: (){
+          //   print("SUCCESS");
+          // },
+          // onCancel:(){
+          //   print("Cancel");
+          // } ,
+          // onError: (e){
+          //   print("Error"+ e.toString());
+          // }
+          // );
         },
       ),
     );

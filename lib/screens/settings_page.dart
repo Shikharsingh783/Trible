@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/screens/profile_page.dart';
-import 'package:trible/screens/signin.dart';
 import 'package:trible/screens/start.dart';
 import 'package:trible/themes/theme_provider.dart';
 

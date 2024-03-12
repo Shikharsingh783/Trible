@@ -5,8 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:trible/resources/add_data.dart';
 import 'package:trible/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -23,6 +27,10 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       _image = img;
     });
+  }
+
+  void saveProfile()async{
+    String resp = await StoreData().saveData(file: _image!);
   }
 
 
@@ -101,6 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Center(child: GestureDetector(
                         onTap: () {
                           selectImage();
+                          saveProfile();
                         },
                         child: FaIcon(FontAwesomeIcons.camera,color: Theme.of(context).colorScheme.secondary,size: 17,))),
                       ),

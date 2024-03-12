@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:trible/screens/NUS2.dart';
 import 'package:trible/screens/info_page.dart';
 
 class NUS1 extends StatefulWidget {
-  NUS1({super.key});
+  const NUS1({super.key});
 
   @override
   State<NUS1> createState() => _NUS1State();
