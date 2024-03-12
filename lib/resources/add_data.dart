@@ -11,14 +11,14 @@ class StoreData{
 
   Future<String> uploadImageToStorage(String childName,Uint8List file)async{
 
-   Reference ref =  _storage.ref().child(childName);
+   Reference ref =  _storage.ref().child(childName).child('id');
    UploadTask uploadTask = ref.putData(file); 
    TaskSnapshot snapshot = await uploadTask;
    String downloadUrl = await snapshot.ref.getDownloadURL();
    return downloadUrl;
   }
 
-  Future<String> saveData({required Uint8List file})
+  Future<String> saveData({required Uint8List file}) 
   async{
     String resp = "some error occured";
     try{

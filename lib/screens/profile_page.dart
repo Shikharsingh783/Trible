@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
 
-  //document ids
+  //document ids 
   List<String> docIds = [];
 
   //get document ids
@@ -279,6 +279,7 @@ class _ProfilePageState extends State<ProfilePage> {
             //   });
             // }
             // ))
+           
           ],
         ),
       ),
