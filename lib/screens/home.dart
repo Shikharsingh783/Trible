@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:trible/components/my_community_tile.dart';
 import 'package:trible/components/my_drawer.dart';
 import 'package:trible/data/community_data.dart';
+import 'package:trible/screens/service_page.dart';
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -18,9 +19,9 @@ class _homeState extends State<home> {
   final newCommunityNameController = TextEditingController();
   final newCommunityCreatorController = TextEditingController();
 
-  // void goToServicePage(String communityname){
-  //   Navigator.push(context, MaterialPageRoute(builder: (context)=>ServicePage(communityName: communityname,)));
-  // }
+  void goToServicePage(String communityname){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>ServicePage(communityName: communityname,)));
+  }
 
  void createNewCommunity(){
     showDialog(context: context, builder: (context)=>
@@ -108,7 +109,7 @@ class _homeState extends State<home> {
        child: Column(
         children: [
         Padding(
-          padding: const EdgeInsets.only(top: 30,left: 30,right: 30),
+          padding: const EdgeInsets.only(top: 30,left: 30,right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -153,7 +154,11 @@ class _homeState extends State<home> {
                   child: ListView.builder(
                     itemCount: value.getCommunityList().length,
                     itemBuilder: (context, index){
-                  return Communitytile(name: value.getCommunityList()[index].name, creator: value.getCommunityList()[index].creator);
+                  return Communitytile(
+                    name: value.getCommunityList()[index].name,
+                     creator: value.getCommunityList()[index].creator,
+                     onPressed:()=> goToServicePage(value.getCommunityList()[index].name),
+                     );
                 }))
 
 
