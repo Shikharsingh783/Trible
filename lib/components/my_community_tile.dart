@@ -12,7 +12,7 @@ class Communitytile extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 15),
+            padding: const EdgeInsets.only(left: 30,right: 20,top: 5,bottom: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
