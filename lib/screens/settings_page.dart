@@ -18,10 +18,10 @@ class SettingsPage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("S  E  T  T  I  N  G  S"),
+          title: Text("S  E  T  T  I  N  G  S",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
            leading: GestureDetector(
             onTap: () {
               // Handle leading icon tap here

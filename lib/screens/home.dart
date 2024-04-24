@@ -13,7 +13,7 @@ class home extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor:Theme.of(context).colorScheme.background,
+      backgroundColor:Theme.of(context).colorScheme.surface,
     
       endDrawer: MyDrawer(),
       body: Stack(
@@ -123,7 +123,7 @@ class home extends StatelessWidget {
                   
                   height: 61,
                   width: 155,
-                  decoration:BoxDecoration(color: Theme.of(context).colorScheme.primary,borderRadius: BorderRadius.circular(5),),
+                  decoration:BoxDecoration(color: Theme.of(context).colorScheme.primary,borderRadius: BorderRadius.circular(8),),
                   child: Center(child: Text("New Tribe +",style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary,fontSize: 20,fontWeight: FontWeight.w500),)),
                  ),
                ),

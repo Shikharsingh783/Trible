@@ -105,7 +105,7 @@ class _MyDropPageState extends State<MyDropPage> {
               padding: const EdgeInsets.only(left: 14, right: 14),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(0),
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
               ),
               elevation: 0,
             ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:slide_to_act/slide_to_act.dart';
 
-import 'package:trible/api/stripe_service.dart';
 
 class MySlide extends StatefulWidget {
   const MySlide({Key? key});
