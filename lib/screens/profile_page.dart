@@ -67,10 +67,10 @@ class _ProfilePageState extends State<ProfilePage> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
           automaticallyImplyLeading: false, // Disable default leading icon
-          title: const Text("P  R  O  F  I  L  E"),
+          title: Text("P  R  O  F  I  L  E",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
           leading: GestureDetector(
             onTap: () {
               // Handle leading icon tap here
@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 30,
                        decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                       child: Center(child: GestureDetector(
                         onTap: () {

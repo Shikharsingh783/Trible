@@ -1,52 +1,127 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:trible/components/my_drawer.dart';
-import 'package:trible/components/my_drop_down.dart';
-import 'package:trible/components/widgets/buy_page.dart';
-import 'package:trible/components/widgets/service_page.dart';
+// ignore_for_file: prefer_const_constructors
 
-class home extends StatelessWidget {
-  home({Key? key});
-  final user  = FirebaseAuth.instance.currentUser;
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trible/components/my_community_tile.dart';
+import 'package:trible/components/my_drawer.dart';
+import 'package:trible/data/community_data.dart';
+
+class home extends StatefulWidget {
+  const home({super.key});
+
+  @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+
+  final newCommunityNameController = TextEditingController();
+  final newCommunityCreatorController = TextEditingController();
+
+  // void goToServicePage(String communityname){
+  //   Navigator.push(context, MaterialPageRoute(builder: (context)=>ServicePage(communityName: communityname,)));
+  // }
+
+ void createNewCommunity(){
+    showDialog(context: context, builder: (context)=>
+    AlertDialog(
+      backgroundColor: Colors.grey[700],
+      title: const Text("Create New Community",style: TextStyle(),),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: newCommunityNameController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Community Name'
+            ),
+          ),
+          SizedBox(height: 5,),
+          TextField(
+            controller: newCommunityCreatorController,
+            decoration: const InputDecoration(
+                hintText: 'Creator Name',
+              border: OutlineInputBorder()
+            ),
+          ),
+        ],
+      ),
+      
+      actions: [
+
+        //save button
+        MaterialButton(onPressed: save,
+        child: const Text("Save"),
+        ),
+
+        //cancel button
+        MaterialButton(onPressed: cancel,
+        child: const Text("Cancel"),
+        )
+      ],
+    )
+    );
+  }
+
+  void save(){
+    String newCommunityName = newCommunityNameController.text;
+    String newCommunityCreator = newCommunityCreatorController.text;
+    Provider.of<CommunityData>(context, listen: false).addCommunity(newCommunityName, newCommunityCreator);
+
+     Navigator.pop(context);
+  }
+
+  void cancel(){
+    Navigator.pop(context);
+    newCommunityNameController.clear();
+    newCommunityCreatorController.clear();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor:Theme.of(context).colorScheme.surface,
-    
+      backgroundColor: Theme.of(context).colorScheme.surface,
       endDrawer: MyDrawer(),
-      body: Stack(
+
+      //floating action button
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: FloatingActionButton.extended(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          onPressed: createNewCommunity,
+        label: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('New Tribe +',
+          style: TextStyle(
+            color: Colors.black,fontSize: 20,
+            fontWeight: FontWeight.w500)
+            ,),
+        ),),
+      ),
+
+
+      body: Consumer<CommunityData>(
+      builder: (context, value, child)=>
+      SafeArea(
+       child: Column(
         children: [
-          SingleChildScrollView(
-          child: Padding(
-         padding: const EdgeInsets.only(top: 110),
-            child: Column(
-              children: [        
-                Padding(
-                  padding: EdgeInsets.only(left: mq.width * 0.1),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Trible",
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontSize: 28,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "Your Communities",
-                            style: TextStyle(
-                                color:Theme.of(context).colorScheme.primary,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300),
-                          )
-                        ],
-                      ),
-                      Builder(
+        Padding(
+          padding: const EdgeInsets.only(top: 30,left: 30,right: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Tribes',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w600,color: Theme.of(context).colorScheme.secondary),),
+                  Text('Your Communities',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: Theme.of(context).colorScheme.primary),)
+                ],
+              ),
+
+              //to display drawer on rigth side
+              Builder(
                         builder: (BuildContext context) {
                            return Padding(
                              padding: const EdgeInsets.only(left:140),
@@ -55,83 +130,37 @@ class home extends StatelessWidget {
                                         }, icon: Icon(Icons.more_horiz_rounded,color: Theme.of(context).colorScheme.secondary,size: 35,)),
                            );
                         }),
-                       
-                      
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20,),
+
+
+            ],
+          ),
+        ),
+
+
+         const SizedBox(height: 20),
+
+
                  const Divider(
                   indent: 0,
                   endIndent: 0,
                   thickness: 1,color: Colors.white,
                 ),
-               MyDropPage(items: ["Coding","Editing"],),
-               MyDropPage(items: ["Website Development","Search Engine Optimzation"],),
-               MyDropPage(items: ["FrontEnd Developmeent","BackEnd Development"],),
-               MyDropPage(items: ["Mobile App Development","UI Development"],),
-               MyDropPage(items: ["Social Media Management",""],),
-                
-                // const Community(community: "School Community", creator: "@randomschool123"),
-                
-                // const Community(community: "Hostel Community", creator: "@hostelblock24"),
-                // Community(community: "Office Space", creator: "@randomoffice123"),
-                // Community(community: "Friend Circle", creator: "@randomfriend123"),
-                // Community(community: "Random Community", creator: "@random"),
-                
-               
-                // Padding(
-                //   padding: EdgeInsets.only(left:mq.width*.12,top:mq.height*.7),
-                //   child: Row(
-                //     children: [
-                //       Text("Logged in as  ::  ",style: TextStyle(color: Colors.white,fontSize: 18),),
-                //       Text(
-                //         user?.email ?? "No user email",
-                //         style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w700),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                      
-              
-              ],
-            ),
-          ),
-        ),
-         GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ServicePage(title1: 'Website development', community1: 'School Community',
-                i1: "images/s1.png",s1: "Responsive web design",tap1:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=> BuyPage(title: "Website Development",community: "School Community",service: "Responsive Web Design",imagePath: "images/s1.png",price: "Rs. 4000",)));},
-      
-                i2: "images/s2.png",s2: "Full Stack WebDev",tap2: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> BuyPage(title: "Website Development",community: "School Community",service: "Full Stack WebDev",imagePath: "images/s2.png",price: "Rs. 8000",)));
-                },
-                i3: "images/s3.png",s3: "SEO Service",tap3: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>BuyPage(title: "Website Development",community: "School Community",service: "SEO Service",imagePath: "images/s2.png",price: "Rs. 5000")));
-                },       
-                i4: "images/s1.png",s4: "Front End Development",
-                i5: "images/s2.png",s5: "Database Management", 
-                ),
-              ));
-            },
-             child: Align(
-              alignment: Alignment.bottomRight,
-               child: Padding(
-                 padding: const EdgeInsets.only(bottom:55,right:25),
-                 child: Container(
-                  
-                  height: 61,
-                  width: 155,
-                  decoration:BoxDecoration(color: Theme.of(context).colorScheme.primary,borderRadius: BorderRadius.circular(8),),
-                  child: Center(child: Text("New Tribe +",style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary,fontSize: 20,fontWeight: FontWeight.w500),)),
-                 ),
-               ),
-             ),
-           )
-        ],
-      ),
+
+                const SizedBox(height: 10,),
+
+                //to display the communities created
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: value.getCommunityList().length,
+                    itemBuilder: (context, index){
+                  return Communitytile(name: value.getCommunityList()[index].name, creator: value.getCommunityList()[index].creator);
+                }))
+
+
+       ],),
+      )
+      ,
+    ),
     );
   }
 }
-

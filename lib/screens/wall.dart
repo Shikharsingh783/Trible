@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
            leading: GestureDetector(
             onTap: () {

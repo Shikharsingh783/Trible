@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/auth/auth.dart';
+import 'package:trible/data/community_data.dart';
 import 'package:trible/themes/theme_provider.dart';
 
 
@@ -14,10 +15,14 @@ void main() async {
   await Firebase.initializeApp();
   
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const MyApp(),
-    ),
+    MultiProvider(providers:[
+      ChangeNotifierProvider(create: (context)=> ThemeProvider()),
+      ChangeNotifierProvider(create: (context)=>CommunityData()),
+
+      
+    ],
+    child: const MyApp(),
+    )
   );
 }
 
