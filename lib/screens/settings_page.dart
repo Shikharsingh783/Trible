@@ -27,7 +27,7 @@ class SettingsPage extends StatelessWidget {
               // Handle leading icon tap here
               Navigator.pop(context);
             },
-            child: Icon(Icons.arrow_back_ios_new_rounded),
+            child: const Icon(Icons.arrow_back_ios_new_rounded),
           ),
         ),
         body: Column(
@@ -41,8 +41,8 @@ class SettingsPage extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage()));
                     },
                     child: Container(
-                      padding: EdgeInsets.all(16),
-                      margin: EdgeInsetsDirectional.all(25),
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsetsDirectional.all(25),
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.secondary,
                         borderRadius: BorderRadius.circular(12),
@@ -63,8 +63,8 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(16),
-                    margin: EdgeInsetsDirectional.only(start: 25,end: 25),
+                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsetsDirectional.only(start: 25,end: 25),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(12),
