@@ -35,7 +35,7 @@ class _ServicePageState extends State<ServicePage> {
             ),
           ),
 
-          const SizedBox(height: 5,),
+          const SizedBox(height: 5),
 
           TextField(
             controller: newServiceImageController,

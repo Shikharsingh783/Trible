@@ -11,7 +11,6 @@ class MySliverAppBar extends StatefulWidget {
 
 class _MySliverAppBarState extends State<MySliverAppBar> {
 
-  bool isCollapsed = false;
   
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
 
     flexibleSpace: FlexibleSpaceBar(
       background: Container(
-        color: Theme.of(context).colorScheme.primary,
+        color: Colors.grey.shade900,
       ),
       title: Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -41,18 +40,12 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(widget.communityName.toUpperCase(),style:TextStyle(color:  Theme.of(context).colorScheme.secondary,fontSize: 20)),
-            Text(widget.communityName,style:TextStyle(color:  Theme.of(context).colorScheme.secondary,fontSize: 18)),
+            Text('hello',style:TextStyle(color:  Theme.of(context).colorScheme.secondary,fontSize: 18)),
           ],
         ),
       ),
       
     ),
-    onStretchTrigger: () {
-        setState(() {
-          isCollapsed = !isCollapsed;
-        });
-        return Future.value(true);
-      },
     );
   }
 }
