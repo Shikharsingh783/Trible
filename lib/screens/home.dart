@@ -26,7 +26,7 @@ class _homeState extends State<home> {
  void createNewCommunity(){
     showDialog(context: context, builder: (context)=>
     AlertDialog(
-      backgroundColor: Colors.grey[700],
+      backgroundColor: Colors.green.shade900,
       title: const Text("Create New Community",style: TextStyle(),),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -43,7 +43,10 @@ class _homeState extends State<home> {
             controller: newCommunityCreatorController,
             decoration: const InputDecoration(
                 hintText: 'Creator Name',
-              border: OutlineInputBorder()
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white)
+              )
             ),
           ),
         ],

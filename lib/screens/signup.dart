@@ -53,7 +53,7 @@ class _signupState extends State<signup> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => NUS1()),
+        MaterialPageRoute(builder: (context) => const NUS1()),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -93,6 +93,7 @@ class _signupState extends State<signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
