@@ -16,6 +16,8 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final newCommunityNameController = TextEditingController();
   final newCommunityCreatorController = TextEditingController();
 
@@ -26,42 +28,71 @@ class _homeState extends State<home> {
  void createNewCommunity(){
     showDialog(context: context, builder: (context)=>
     AlertDialog(
-      backgroundColor: Colors.green.shade900,
-      title: const Text("Create New Community",style: TextStyle(),),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: newCommunityNameController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Community Name'
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      title: const Text("Create New Community",style: TextStyle(color: Colors.white),),
+      content: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              validator: (value){
+                if(value == null || value.isEmpty){
+                  return 'Community name cannot be empty';
+                }
+                return null;
+              },
+              controller: newCommunityNameController,
+              decoration: const InputDecoration(
+                 errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.yellow)),
+                errorStyle: TextStyle(color: Colors.yellow),
+                border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)
+                ),
+                hintText: 'Community Name',
+                hintStyle: TextStyle(color: Colors.white)
+              ),
             ),
-          ),
-          SizedBox(height: 5,),
-          TextField(
-            controller: newCommunityCreatorController,
-            decoration: const InputDecoration(
-                hintText: 'Creator Name',
-              border: OutlineInputBorder(),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)
-              )
+            SizedBox(height: 5,),
+            TextFormField(
+              
+              validator: (value){
+                if(value == null || value.isEmpty){
+                  return 'Creator name cannot be empty';
+                }
+                return null;
+              },
+              controller: newCommunityCreatorController,
+              decoration: const InputDecoration(
+                errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.yellow)),
+                errorStyle: TextStyle(color: Colors.yellow),
+                border: OutlineInputBorder(),
+                  hintText: 'Creator Name',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)
+                ),
+                hintStyle: TextStyle(color: Colors.white)
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       
       actions: [
 
         //save button
-        MaterialButton(onPressed: save,
-        child: const Text("Save"),
+        MaterialButton(onPressed: (){
+          if(_formKey.currentState!.validate()){
+            save();
+          }
+        },
+        child: const Text("Save",style: TextStyle(color: Colors.white),),
         ),
 
         //cancel button
         MaterialButton(onPressed: cancel,
-        child: const Text("Cancel"),
+        child: const Text("Cancel",style: TextStyle(color: Colors.white),),
         )
       ],
     )

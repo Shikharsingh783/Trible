@@ -16,6 +16,9 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      leading: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Icon(Icons.arrow_back_ios_new_rounded,color: Theme.of(context).colorScheme.secondary,)),
       backgroundColor: Theme.of(context).colorScheme.surface,
       actions: [
         Padding(
