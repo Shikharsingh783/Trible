@@ -150,8 +150,8 @@ class _homeState extends State<home> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Tribes',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w600,color: Theme.of(context).colorScheme.secondary),),
-                  Text('Your Communities',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: Theme.of(context).colorScheme.primary),)
+                  Text('Tribes',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w600,color: Theme.of(context).colorScheme.primary),),
+                  Text('Your Communities',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: Theme.of(context).colorScheme.secondary),)
                 ],
               ),
 

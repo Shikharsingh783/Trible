@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:trible/main.dart';
 import 'package:trible/auth/auth.dart';
 import 'package:trible/screens/forgot_password.dart';
 import 'package:trible/screens/home.dart';
 import 'package:trible/screens/signup.dart';
+import 'package:trible/themes/theme_provider.dart';
 
 
 class signin extends StatefulWidget {
@@ -77,9 +79,12 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool darkMode = themeProvider.isdarkMode;
+
     mq = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(30, 37, 40, 1),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -92,18 +97,19 @@ void initState() {
             children: [
               Padding(
                 padding: EdgeInsets.only(right:mq.width*.555),
-                child: const Text("Sign In",style: TextStyle(fontWeight: FontWeight.w700,color: Color.fromRGBO(0, 224, 145, 1),fontSize: 32),),
+                child: Text("Sign In",style: TextStyle(fontWeight: FontWeight.w700,color: darkMode ? Colors.black : const Color.fromRGBO(0, 224, 145, 1),fontSize: 32),),
               ),
               Padding(
                 padding: EdgeInsets.only(right:mq.width*.42),
-                child: const Text("Welcome back",style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.w300),),
+                child: Text("Welcome back",style: TextStyle(color:
+                darkMode ? Colors.grey.shade900 : Colors.white,fontSize: 24,fontWeight: FontWeight.w300),),
               ),
               const SizedBox(height: 40,),
               Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(right:mq.width*.75),
-                    child: const Text("Email",style: TextStyle(color: Colors.white,fontSize: 22),),
+                    child: Text("Email",style: TextStyle( color: Theme.of(context).colorScheme.secondary,fontSize: 22),),
                   ),
                   const SizedBox(height: 5,),
                   SizedBox(
@@ -129,7 +135,8 @@ void initState() {
                children: [
                 Padding(
                   padding: EdgeInsets.only(right:mq.width*.64),
-                  child: const Text("Password",style: TextStyle(color: Colors.white,fontSize: 22)),
+                  child: Text("Password",style: TextStyle(
+                     color: Theme.of(context).colorScheme.secondary,fontSize: 22)),
                 ),
                 const SizedBox(height: 5,),
                 SizedBox(
@@ -175,12 +182,9 @@ void initState() {
               
             ]),
             const SizedBox(height:40),
-            const Divider(
-              indent: 25,
-              endIndent: 25,
-              thickness: 2,
-              color: Colors.white,
-            ),
+
+              Divider(indent: 25, endIndent: 25, thickness: 2, color: Theme.of(context).colorScheme.secondary),
+              
             const SizedBox(height:40),
             GestureDetector (
               onTap: () async{ 
@@ -190,10 +194,10 @@ void initState() {
               child: Container(
                 height: 69,
                 width:306,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Colors.white,width: 2)),
-                child: const Align(
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: darkMode ? Colors.black : Colors.white,width: 2)),
+                child: Align(
                   alignment: Alignment.center,
-                  child: Text("Continue with google",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),)),
+                  child: Text("Continue with google",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.w500,fontSize: 20),)),
               ),
             ),
             const SizedBox(height: 40,),
@@ -201,13 +205,13 @@ void initState() {
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
               },
-              child: const Text("New here? Sign up",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: Colors.white,decoration: TextDecoration.underline,decorationColor: Colors.white),)),
+              child: Text("New here? Sign up",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: Theme.of(context).colorScheme.secondary,decoration: TextDecoration.underline,decorationColor: Theme.of(context).colorScheme.secondary),)),
               const SizedBox(height: 20,),
               GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>const Forgotpassword()));
                 },
-                child: const Text("Forgot Password?",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400,color: Colors.white,decoration: TextDecoration.underline,decorationColor: Colors.white)))
+                child: Text("Forgot Password?",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400,color: Theme.of(context).colorScheme.secondary,decoration: TextDecoration.underline,decorationColor: Theme.of(context).colorScheme.secondary)))
             ],
           ),
         ),

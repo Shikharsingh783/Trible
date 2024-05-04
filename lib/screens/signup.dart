@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:trible/auth/auth.dart';
 import 'package:trible/screens/NUS1.dart';
 import 'package:trible/screens/signin.dart';
+import 'package:trible/themes/dark_mode.dart';
+import 'package:trible/themes/theme_provider.dart';
 
 class signup extends StatefulWidget {
   signup({Key? key}) : super(key: key);
@@ -92,6 +95,10 @@ class _signupState extends State<signup> {
 
   @override
   Widget build(BuildContext context) {
+
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool darkMode = themeProvider.isdarkMode;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
@@ -106,21 +113,21 @@ class _signupState extends State<signup> {
             children: [
               Padding(
                 padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * .52),
-                child: const Text(
+                child: Text(
                   "Sign Up",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(102, 221, 152, 1),
+                    color: darkMode ? Colors.black :Color.fromRGBO(102, 221, 152, 1),
                     fontSize: 32,
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * .23),
-                child: const Text(
+                child: Text(
                   "Create a new account",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: darkMode ? Colors.grey.shade800 : Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.w300,
                   ),
@@ -132,7 +139,7 @@ class _signupState extends State<signup> {
               const SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * .74),
-                child: const Text("Email", style: TextStyle(color: Colors.white, fontSize: 22)),
+                child: Text("Email", style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 22)),
               ),
               const SizedBox(height: 5),
               SizedBox(
@@ -163,7 +170,7 @@ class _signupState extends State<signup> {
               const SizedBox(height: 15),
               Padding(
                 padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * .64),
-                child: const Text("Password", style: TextStyle(color: Colors.white, fontSize: 22)),
+                child: Text("Password", style: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 22)),
               ),
               const SizedBox(height: 5),
               SizedBox(
@@ -204,7 +211,7 @@ class _signupState extends State<signup> {
                   child: Align(
                     alignment: Alignment.center,
                     child: isLoading
-                        ? Center(child: const CircularProgressIndicator(color: Colors.black))
+                        ? const Center(child: CircularProgressIndicator(color: Colors.black))
                         : const Text(
                             "Create Account",
                             style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
@@ -213,17 +220,19 @@ class _signupState extends State<signup> {
                 ),
               ),
               const SizedBox(height: 40),
-              const Divider(indent: 25, endIndent: 25, thickness: 2, color: Colors.white),
+
+              Divider(indent: 25, endIndent: 25, thickness: 2, color: Theme.of(context).colorScheme.secondary),
+
               const SizedBox(height: 40),
               GestureDetector(
                 onTap: () => AuthService().signInWithGoogle(),
                 child: Container(
                   height: 69,
                   width: 306,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.white, width: 2)),
-                  child: const Align(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: darkMode ? Colors.black : Colors.white, width: 2)),
+                  child: Align(
                     alignment: Alignment.center,
-                    child: Text("Continue with Google", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)),
+                    child: Text("Continue with google",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.w500,fontSize: 20),)
                   ),
                 ),
               ),
@@ -232,9 +241,9 @@ class _signupState extends State<signup> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => signin(ontap: () {  },)));
                 },
-                child: const Text(
+                child: Text(
                   "Already a user? Login",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Colors.white, decoration: TextDecoration.underline, decorationColor: Colors.white),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, color: Theme.of(context).colorScheme.secondary, decoration: TextDecoration.underline, decorationColor: Colors.white),
                 ),
               ),
             ],
