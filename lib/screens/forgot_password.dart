@@ -23,7 +23,7 @@ void initState() {
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
     return Scaffold(
-       backgroundColor: const Color.fromRGBO(30, 37, 40, 1),
+       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -36,7 +36,7 @@ void initState() {
             children: [
                Padding(
                         padding: EdgeInsets.only(right:mq.width*.75,top: mq.height*.15),
-                        child: const Text("Email",style: TextStyle(color: Colors.white,fontSize: 22),),
+                        child: Text("Email",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 22),),
                       ),
                       const SizedBox(height: 5,),
                       SizedBox(
