@@ -97,12 +97,12 @@ void initState() {
             children: [
               Padding(
                 padding: EdgeInsets.only(right:mq.width*.555),
-                child: Text("Sign In",style: TextStyle(fontWeight: FontWeight.w700,color: darkMode ? Colors.black : const Color.fromRGBO(0, 224, 145, 1),fontSize: 32),),
+                child: Text("Sign In",style: TextStyle(fontWeight: FontWeight.w700,color: darkMode ?  const Color.fromRGBO(0, 224, 145, 1):Colors.black,fontSize: 32),),
               ),
               Padding(
                 padding: EdgeInsets.only(right:mq.width*.42),
                 child: Text("Welcome back",style: TextStyle(color:
-                darkMode ? Colors.grey.shade900 : Colors.white,fontSize: 24,fontWeight: FontWeight.w300),),
+                darkMode ?Colors.white: Colors.grey.shade900  ,fontSize: 24,fontWeight: FontWeight.w300),),
               ),
               const SizedBox(height: 40,),
               Column(
@@ -115,6 +115,7 @@ void initState() {
                   SizedBox(
                     width: 380,
                     child: TextFormField(
+                      style: const TextStyle(color: Colors.black),
                       controller: _email,
                       validator:(value) {
                         if(value!.isEmpty){
@@ -142,6 +143,7 @@ void initState() {
                 SizedBox(
                   width: 380,
                   child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
                     controller: _password,
                     validator: (value) {
                       if(value!.isEmpty){
@@ -194,7 +196,7 @@ void initState() {
               child: Container(
                 height: 69,
                 width:306,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: darkMode ? Colors.black : Colors.white,width: 2)),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: darkMode ? Colors.white: Colors.black ,width: 2)),
                 child: Align(
                   alignment: Alignment.center,
                   child: Text("Continue with google",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.w500,fontSize: 20),)),

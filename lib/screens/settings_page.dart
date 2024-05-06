@@ -12,6 +12,10 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool darkMode = themeProvider.isdarkMode;
+
     return WillPopScope(
       onWillPop: () async {
         // Return false to prevent back navigation
@@ -38,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProfilePage()));
                     },
                     child: Container(
                       padding: const EdgeInsets.all(16),
@@ -47,15 +51,15 @@ class SettingsPage extends StatelessWidget {
                         color: Theme.of(context).colorScheme.secondary,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(6.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("P R O F I L E",style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text("P R O F I L E",style: TextStyle(fontWeight: FontWeight.bold,color: darkMode ? Colors.black : Colors.white),),
                             Padding(
                               padding: EdgeInsets.only(right:15),
-                              child: Icon(Icons.person),
+                              child: Icon(Icons.person,color: darkMode ? Colors.black : Colors.white,),
                             )
                           ],
                         ),
@@ -73,7 +77,7 @@ class SettingsPage extends StatelessWidget {
                       builder: (context, themeProvider, _) => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text("Dark Mode",style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text("Dark Mode",style: TextStyle(fontWeight: FontWeight.bold,color: darkMode ? Colors.black : Colors.white),),
                           CupertinoSwitch(
                             value: themeProvider.isdarkMode,
                             onChanged: (value) => themeProvider.toggleTheme(),
@@ -104,8 +108,8 @@ class SettingsPage extends StatelessWidget {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           
-                          backgroundColor: Theme.of(context).colorScheme.background,
-                          title: Text("L O G O U T",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 18,fontWeight: FontWeight.w600),),
+                          backgroundColor: Theme.of(context).colorScheme.surface,
+                          title: Text("L O G O U T",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w600),),
                           content: Text("Are you sure you want to log out?",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
                           actions: [
                             TextButton(
@@ -146,13 +150,13 @@ class SettingsPage extends StatelessWidget {
                       },
                     );
                   },
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(6.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("L O G O U T",style: TextStyle(fontWeight: FontWeight.bold),),
-                        Padding(
+                        Text("L O G O U T",style: TextStyle(fontWeight: FontWeight.bold,color: darkMode ? Colors.black : Colors.white),),
+                        const Padding(
                           padding: EdgeInsets.only(right:15),
                           child: FaIcon(FontAwesomeIcons.signOutAlt,color: Colors.red,),
                         )

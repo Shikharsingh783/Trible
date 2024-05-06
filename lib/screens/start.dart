@@ -26,16 +26,16 @@ class start extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-             Text("Trible",style: TextStyle(fontWeight: FontWeight.w700,color: darkMode ? const Color.fromRGBO(30, 37, 40, 1) : const Color.fromRGBO(0, 224, 145, 1),fontSize: 37,decoration: TextDecoration.none),),
+             Text("Trible",style: TextStyle(fontWeight: FontWeight.w700,color: darkMode ?const Color.fromRGBO(0, 224, 145, 1): const Color.fromRGBO(30, 37, 40, 1),fontSize: 37,decoration: TextDecoration.none),),
              const SizedBox(height: 120,),
              Padding(
                padding: EdgeInsets.only(right:mq.width*.43),
-               child: Text("Welcome",style: TextStyle(color: darkMode ? Colors.grey.shade900 : Colors.white,fontSize: 34,fontWeight: FontWeight.w700 ),),
+               child: Text("Welcome",style: TextStyle(color: darkMode ? Colors.white : Colors.grey.shade900  ,fontSize: 34,fontWeight: FontWeight.w700 ),),
              ),
              const SizedBox(height: 2,),
              Padding(
                padding: EdgeInsets.only(right:mq.width*.26),
-               child: Text("Join a community\nwhere your work\nmatters.",style: TextStyle(color: Theme.of(context).colorScheme.primary,fontSize: 28,fontWeight: FontWeight.w400),),
+               child: Text("Join a community\nwhere your work\nmatters.",style: TextStyle(color: darkMode ? Colors.white : const Color.fromRGBO(0, 224, 145, 1),fontSize: 28,fontWeight: FontWeight.w400),),
              ),
              const SizedBox(height: 180,),
               GestureDetector(
@@ -46,10 +46,10 @@ class start extends StatelessWidget {
                           height: 69,
                           width:306,
                           
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Theme.of(context).colorScheme.primary,width: 1.2)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: darkMode? Colors.white : const Color.fromRGBO(0, 224, 145, 1),width: 1.2)),
                           child: Align(
                 alignment: Alignment.center,
-                child: Text("Sign In",style: TextStyle(color: Theme.of(context).colorScheme.primary,fontWeight: FontWeight.w500,fontSize: 20),)),
+                child: Text("Sign In",style: TextStyle(color: darkMode ? Colors.white:const Color.fromRGBO(0, 224, 145, 1),fontWeight: FontWeight.w500,fontSize: 20),)),
                         ),
               ),
           const SizedBox(height: 25,),
@@ -60,10 +60,10 @@ class start extends StatelessWidget {
              child: Container(
                 height: 69,
                 width: 306,
-                decoration: BoxDecoration( color: darkMode ? const Color.fromRGBO(30, 37, 40, 1) : const Color.fromRGBO(0, 224, 145, 1),borderRadius: BorderRadius.circular(5)),
+                decoration: BoxDecoration( color: darkMode ?  const Color.fromRGBO(0, 224, 145, 1): const Color.fromRGBO(30, 37, 40, 1) ,borderRadius: BorderRadius.circular(5)),
                 child: Align(
                   alignment: Alignment.center,
-                  child: Text("Create Account",style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 20,fontWeight: FontWeight.w600),)),
+                  child: Text("Create Account",style: TextStyle(color: darkMode ? Colors.black : Colors.white,fontSize: 20,fontWeight: FontWeight.w600),)),
               ),
            ),
           ],

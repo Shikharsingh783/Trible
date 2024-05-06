@@ -17,33 +17,24 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
     return SliverAppBar(
       leading: GestureDetector(
         onTap: () => Navigator.pop(context),
-        child: Icon(Icons.arrow_back_ios_new_rounded,color: Theme.of(context).colorScheme.secondary,)),
-      backgroundColor: Theme.of(context).colorScheme.surface,
+        child: const Icon(Icons.arrow_back_ios_new_rounded,color:  Colors.black,)),
+      backgroundColor: Colors.white,
       actions: [
         Padding(
         padding: const EdgeInsets.only(right: 20),
-        child: IconButton(onPressed: widget.onPressed,icon: const Icon(Icons.more_horiz_outlined,color: Colors.white,),)
+        child: IconButton(onPressed: widget.onPressed,icon: const Icon(Icons.more_horiz_outlined,color:  Colors.black,),)
       ),],
-      expandedHeight: 200,
-      collapsedHeight: 75,
+      expandedHeight: 120,
+      // collapsedHeight: 75,
       pinned: true,
-      // floating: true,
-      // title: Text(communityName,style:TextStyle(color:  Theme.of(context).colorScheme.secondary,)),
 
     flexibleSpace: FlexibleSpaceBar(
       background: Container(
-        color: Colors.grey.shade900,
+        color: Colors.white,
       ),
-      title: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(widget.communityName.toUpperCase(),style:TextStyle(color:  Theme.of(context).colorScheme.secondary,fontSize: 20)),
-            Text('hello',style:TextStyle(color:  Theme.of(context).colorScheme.secondary,fontSize: 18)),
-          ],
-        ),
-      ),
+      title: Text(widget.communityName.toUpperCase(),style:const TextStyle(color:  Colors.black,fontSize: 20)),
+
+      
       
     ),
     );

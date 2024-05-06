@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:trible/auth/auth.dart';
 import 'package:trible/data/community_data.dart';
 import 'package:trible/screens/home.dart';
+import 'package:trible/screens/splash.dart';
 import 'package:trible/themes/theme_provider.dart';
 
 

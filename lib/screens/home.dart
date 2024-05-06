@@ -6,6 +6,7 @@ import 'package:trible/components/my_community_tile.dart';
 import 'package:trible/components/my_drawer.dart';
 import 'package:trible/data/community_data.dart';
 import 'package:trible/screens/service_page.dart';
+import 'package:trible/themes/theme_provider.dart';
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -116,6 +117,10 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
+
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool darkMode = themeProvider.isdarkMode;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       endDrawer: MyDrawer(),
@@ -130,7 +135,7 @@ class _homeState extends State<home> {
           padding: const EdgeInsets.all(8.0),
           child: Text('New Tribe +',
           style: TextStyle(
-            color: Colors.black,fontSize: 20,
+            color: darkMode ? Colors.black : Color.fromRGBO(0, 224, 145, 1) ,fontSize: 20,
             fontWeight: FontWeight.w500)
             ,),
         ),),
@@ -150,7 +155,7 @@ class _homeState extends State<home> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Tribes',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w600,color: Theme.of(context).colorScheme.primary),),
+                  Text('Tribes',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w600,color:darkMode? Color.fromRGBO(0, 224, 145, 1): Colors.black),),
                   Text('Your Communities',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: Theme.of(context).colorScheme.secondary),)
                 ],
               ),

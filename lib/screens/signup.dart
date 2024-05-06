@@ -117,7 +117,7 @@ class _signupState extends State<signup> {
                   "Sign Up",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
-                    color: darkMode ? Colors.black :Color.fromRGBO(102, 221, 152, 1),
+                    color: darkMode ? const Color.fromRGBO(102, 221, 152, 1) : Colors.black ,
                     fontSize: 32,
                   ),
                 ),
@@ -127,7 +127,7 @@ class _signupState extends State<signup> {
                 child: Text(
                   "Create a new account",
                   style: TextStyle(
-                    color: darkMode ? Colors.grey.shade800 : Colors.white,
+                    color: darkMode ? Colors.white : Colors.grey.shade800 ,
                     fontSize: 24,
                     fontWeight: FontWeight.w300,
                   ),
@@ -231,7 +231,7 @@ class _signupState extends State<signup> {
                 child: Container(
                   height: 69,
                   width: 306,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: darkMode ? Colors.black : Colors.white, width: 2)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: darkMode ? Colors.white : Colors.black, width: 2)),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text("Continue with google",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.w500,fontSize: 20),)

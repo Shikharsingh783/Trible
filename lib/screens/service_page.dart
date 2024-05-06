@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/components/my_drawer.dart';
@@ -63,7 +64,9 @@ class _ServicePageState extends State<ServicePage> {
           const SizedBox(height: 5),
 
           TextField(
-            controller: newServiceImageController,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            controller: newServicePriceController,
             decoration: const InputDecoration(
                 hintText: '₹ Price',
               border: OutlineInputBorder()
@@ -95,18 +98,23 @@ class _ServicePageState extends State<ServicePage> {
      Navigator.pop(context);
     newServiceNameController.clear();
     newServiceImageController.clear();
+    newServiceDomainController.clear();
+    newServicePriceController.clear();
   }
 
   void cancel(){
     Navigator.pop(context);
     newServiceNameController.clear();
     newServiceImageController.clear();
+    newServiceDomainController.clear();
+    newServicePriceController.clear();
   }
 
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       floatingActionButton: FloatingActionButton.extended(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         onPressed: createNewService, label: Text('New Service +',style: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w500),),),
@@ -115,11 +123,9 @@ class _ServicePageState extends State<ServicePage> {
       body: NestedScrollView(headerSliverBuilder: (context, innerBoxIsScrolled)=>
       [
         MySliverAppBar(communityName: widget.communityName, onPressed: Scaffold.of(context).openEndDrawer,)
-      ]
+      ],
 
-
-
-      , body: Consumer<CommunityData>(builder: (context, value, child)=>
+      body: Consumer<CommunityData>(builder: (context, value, child)=>
       Column(children: [
 
         Expanded(

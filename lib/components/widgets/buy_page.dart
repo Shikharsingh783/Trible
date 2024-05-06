@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:trible/screens/payment_page.dart';
+import 'package:trible/themes/theme_provider.dart';
 
 late Size mq;
 
@@ -15,6 +17,10 @@ class BuyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool darkMode = themeProvider.isdarkMode;
+    
     mq = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(30, 37, 40, 1),
@@ -112,7 +118,7 @@ class BuyPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(right:mq.width*.63,top: mq.height*.015),
-                    child: const Text("Testimonials",style: TextStyle(fontSize: 20,fontWeight:FontWeight.w500 ),),
+                    child: const Text("Testimonials",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight:FontWeight.w500 ),),
                   ),
                   const SizedBox(height: 40),
                    const Divider(
@@ -125,7 +131,7 @@ class BuyPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left:mq.width*.04),
-                  child: Text('\₹ ${price??''}',style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600),),
+                  child: Text('₹ ${price??''}',style: TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.black),),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left:mq.width*.37,top:mq.height*.01),
@@ -135,7 +141,7 @@ class BuyPage extends StatelessWidget {
                       height: 51,
                       width: 136,
                       decoration: BoxDecoration(color: const Color.fromRGBO(0, 224, 145, 1),borderRadius: BorderRadius.circular(5)),
-                      child: const Center(child: Text("Hire",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),)),
+                      child: const Center(child: Text("Hire Now",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w600),)),
                     ),
                   ),
                 
