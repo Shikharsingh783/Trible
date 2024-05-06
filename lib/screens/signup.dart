@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:trible/auth/auth.dart';
 import 'package:trible/screens/NUS1.dart';
 import 'package:trible/screens/signin.dart';
-import 'package:trible/themes/dark_mode.dart';
 import 'package:trible/themes/theme_provider.dart';
 
 class signup extends StatefulWidget {
@@ -16,6 +15,7 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isLoading = false;
   final TextEditingController _emailController = TextEditingController();
@@ -145,6 +145,7 @@ class _signupState extends State<signup> {
               SizedBox(
                 width: 380,
                 child: TextFormField(
+                  style: TextStyle(color: darkMode ? Colors.black : Colors.white),
                   controller: _emailController,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -176,6 +177,7 @@ class _signupState extends State<signup> {
               SizedBox(
                 width: 380,
                 child: TextFormField(
+                  style: TextStyle(color: darkMode ? Colors.black : Colors.white),
                   controller: _passwordController,
                   validator: (value) {
                     if (value!.isEmpty) {

@@ -4,7 +4,7 @@ import 'package:trible/themes/light_mode.dart';
 
 class ThemeProvider extends ChangeNotifier{
   //initially, ligthmode
-  ThemeData _themeData = darkMode;
+  ThemeData _themeData = lightMode;
 
   //get theme
   ThemeData get themeData => _themeData;

@@ -34,40 +34,40 @@ void initState() {
           key: _formKey,
           child: Column(
             children: [
-               Padding(
-                        padding: EdgeInsets.only(right:mq.width*.75,top: mq.height*.15),
-                        child: Text("Email",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 22),),
-                      ),
-                      const SizedBox(height: 5,),
-                      SizedBox(
-                        width: 380,
-                        child: TextFormField(
-                          controller: _email,
-                          validator:(value){
-                            if(value!. isEmpty){
-                              return "Email cannot be empty";
-                            }
-                            RegExp emailRegExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-                            if(!emailRegExp.hasMatch(value)){
-                              return "Enter a valid Email";
-                            }
-                            return null;
-                          },
-                          cursorColor: Colors.black,
-                        decoration: const InputDecoration(
-                          errorStyle: TextStyle(color: Colors.yellow),
-                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 145, 1))),
-                          border: OutlineInputBorder(),filled: true,fillColor: Colors.white,),
-                                  ),
-                      ),
-                      const SizedBox(height: 50,),
-                      Center(
-                        child: GestureDetector(
-                          
-                          onTap: (){
-                             if(_formKey.currentState!.validate()){
-                              auth.sendPasswordResetEmail(email: _email.text.toString()).then((value){
-                                ScaffoldMessenger.of(context).showSnackBar(
+  Padding(
+          padding: EdgeInsets.only(right:mq.width*.75,top: mq.height*.15),
+          child: Text("Email",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 22),),
+        ),
+        const SizedBox(height: 5,),
+        SizedBox(
+          width: 380,
+          child: TextFormField(
+            controller: _email,
+            validator:(value){
+              if(value!. isEmpty){
+                return "Email cannot be empty";
+              }
+              RegExp emailRegExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+              if(!emailRegExp.hasMatch(value)){
+                return "Enter a valid Email";
+              }
+              return null;
+            },
+            cursorColor: Colors.black,
+          decoration: const InputDecoration(
+            errorStyle: TextStyle(color: Colors.yellow),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(0, 224, 145, 1))),
+            border: OutlineInputBorder(),filled: true,fillColor: Colors.white,),
+                    ),
+        ),
+        const SizedBox(height: 50,),
+        Center(
+          child: GestureDetector(
+            
+            onTap: (){
+                if(_formKey.currentState!.validate()){
+                auth.sendPasswordResetEmail(email: _email.text.toString()).then((value){
+                  ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text("Password reset email sent successfully."),
       ),
