@@ -155,16 +155,16 @@ class _homeState extends State<home> {
                 ],
               ),
 
-              //to display drawer on rigth side
-              Builder(
-                        builder: (BuildContext context) {
-                           return Padding(
-                             padding: const EdgeInsets.only(left:140),
-                             child: IconButton( onPressed: () {
-                                          Scaffold.of(context).openEndDrawer();
-                                        }, icon: Icon(Icons.more_horiz_rounded,color: Theme.of(context).colorScheme.secondary,size: 35,)),
-                           );
-                        }),
+    //to display drawer on rigth side
+    Builder(
+              builder: (BuildContext context) {
+                  return Padding(
+                    padding: const EdgeInsets.only(left:140),
+                    child: IconButton( onPressed: () {
+                                Scaffold.of(context).openEndDrawer();
+                              }, icon: Icon(Icons.more_horiz_rounded,color: Theme.of(context).colorScheme.secondary,size: 35,)),
+                  );
+              }),
 
 
             ],
@@ -175,28 +175,28 @@ class _homeState extends State<home> {
          const SizedBox(height: 20),
 
 
-                 const Divider(
-                  indent: 0,
-                  endIndent: 0,
-                  thickness: 1,color: Colors.white,
-                ),
+          const Divider(
+          indent: 0,
+          endIndent: 0,
+          thickness: 1,color: Colors.white,
+        ),
 
-                const SizedBox(height: 10,),
+        const SizedBox(height: 10,),
 
-                //to display the communities created
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: value.getCommunityList().length,
-                    itemBuilder: (context, index){
-                  return Communitytile(
-                    name: value.getCommunityList()[index].name,
-                     creator: value.getCommunityList()[index].creator,
-                     onPressed:()=> goToServicePage(value.getCommunityList()[index].name),
-                     );
-                }))
+        //to display the communities created
+        Expanded(
+          child: ListView.builder(
+            itemCount: value.getCommunityList().length,
+            itemBuilder: (context, index){
+          return Communitytile(
+            name: value.getCommunityList()[index].name,
+              creator: value.getCommunityList()[index].creator,
+              onPressed:()=> goToServicePage(value.getCommunityList()[index].name),
+              );
+        }))
 
 
-       ],),
+],),
       )
       ,
     ),

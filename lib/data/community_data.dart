@@ -7,7 +7,7 @@ class CommunityData extends ChangeNotifier{
   List<Community> communityList = [
     //default community
     Community(name: 'School Community', creator: '@random123', services: [
-      Service(imagePath: 'images/s1.png', title: 'responsive web design', ontap: () {})
+      Service(imagePath: 'images/s1.png', title: 'responsive web design', price: '4000', domain: 'Website Development',)
     ])
   ];
 
@@ -24,12 +24,12 @@ class CommunityData extends ChangeNotifier{
   }
 
   //add service to a community
-  void addServices(String communityName, String serviceName, String imagePath){
+  void addServices(String communityName, String serviceName, String imagePath, String price, String domain){
 
     //find relevant community
     Community relevantCommunity = communityList.firstWhere((Community)=> Community.name == communityName);
 
-    relevantCommunity.services.add(Service(imagePath: imagePath, title: serviceName, ontap: () {  }));
+    relevantCommunity.services.add(Service(imagePath: imagePath, title: serviceName, price: price, domain: domain, ));
 
     notifyListeners();
   }

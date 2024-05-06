@@ -1,7 +1,8 @@
 class Service{
   String title;
   String imagePath;
-  final Function()? ontap;
+  String price;
+  String domain;
 
-  Service({required this.imagePath, required this.title, required this.ontap});
+  Service({required this.imagePath, required this.title, required this.price, required this.domain});
 }

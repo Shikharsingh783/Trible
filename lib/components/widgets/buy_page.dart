@@ -26,27 +26,32 @@ class BuyPage extends StatelessWidget {
       body: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left:mq.width*0.03),
-                child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: const Icon(Icons.arrow_back_ios_new_rounded,color: Colors.white,size: 30,)),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Padding(
+                      padding: EdgeInsets.only(left:15),
+                      child: Icon(Icons.arrow_back_ios_new_rounded,color: Colors.white,size: 30,),
+                    )),
+
+                    const SizedBox(width: 20),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title??"",style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.white),),
+                      Text(community??"",style: const TextStyle(color: Color.fromRGBO(0, 224, 145, 1),fontSize: 20,fontWeight: FontWeight.w300),),
+                     
+                    ],
+                  ),
+                ],
               ),
-              Padding(
-                padding:  EdgeInsets.only(left:mq.width*.06),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title??"",style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.white),),
-                    Text(community??"",style: const TextStyle(color: Color.fromRGBO(0, 224, 145, 1),fontSize: 20,fontWeight: FontWeight.w300),),
-                   
-                  ],
-                ),
-              ),
-               Padding(
-                 padding: EdgeInsets.only(left:mq.width*.12),
-                 child: const Icon(Icons.more_horiz,color: Colors.white,weight:2,),
+               const Padding(
+                 padding: EdgeInsets.only(right: 20),
+                 child: Icon(Icons.more_horiz,color: Colors.white,weight:2,),
                )
             ],
           ),
@@ -120,12 +125,12 @@ class BuyPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left:mq.width*.04),
-                  child: Text(price??"",style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600),),
+                  child: Text('\₹ ${price??''}',style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600),),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left:mq.width*.32,top:mq.height*.01),
+                  padding: EdgeInsets.only(left:mq.width*.37,top:mq.height*.01),
                   child: GestureDetector(
-                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage()));},
+                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>const PaymentPage()));},
                     child: Container(
                       height: 51,
                       width: 136,

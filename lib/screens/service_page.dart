@@ -20,6 +20,8 @@ class _ServicePageState extends State<ServicePage> {
 
   final newServiceNameController = TextEditingController();
   final newServiceImageController = TextEditingController();
+  final newServicePriceController = TextEditingController();
+  final newServiceDomainController = TextEditingController();
 
   void createNewService(){
     showDialog(context: context, builder: (context)=>
@@ -28,6 +30,18 @@ class _ServicePageState extends State<ServicePage> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+
+           TextField(
+            controller: newServiceNameController,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Domain'
+            ),
+          ),
+
+          const SizedBox(height: 5),
+
+
           TextField(
             controller: newServiceNameController,
             decoration: const InputDecoration(
@@ -42,6 +56,16 @@ class _ServicePageState extends State<ServicePage> {
             controller: newServiceImageController,
             decoration: const InputDecoration(
                 hintText: 'Image path',
+              border: OutlineInputBorder()
+            ),
+          ),
+
+          const SizedBox(height: 5),
+
+          TextField(
+            controller: newServiceImageController,
+            decoration: const InputDecoration(
+                hintText: '₹ Price',
               border: OutlineInputBorder()
             ),
           ),
@@ -65,7 +89,7 @@ class _ServicePageState extends State<ServicePage> {
   }
 
   void save(){
-    Provider.of<CommunityData>(context, listen: false).addServices(widget.communityName, newServiceNameController.text, newServiceImageController.text);
+    Provider.of<CommunityData>(context, listen: false).addServices(widget.communityName, newServiceNameController.text, newServiceImageController.text, newServicePriceController.text, newServiceDomainController.text );
 
 
      Navigator.pop(context);
@@ -105,9 +129,17 @@ class _ServicePageState extends State<ServicePage> {
         GestureDetector(
           onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=> BuyPage(
 
-            title: value.getReleventCommunity(widget.communityName).services[index].toString(),
+            service: value.getReleventCommunity(widget.communityName).services[index].title.toUpperCase(),
+
+           
 
             imagePath: value.getReleventCommunity(widget.communityName).services[index].imagePath,
+
+            community: widget.communityName,
+
+            price: value.getReleventCommunity(widget.communityName).services[index].price,
+
+            title: value.getReleventCommunity(widget.communityName).services[index].domain,
           )));},
           child: Container(
             width: 190,
