@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:trible/screens/payment_page.dart';
-import 'package:trible/themes/theme_provider.dart';
+
 
 late Size mq;
 
@@ -18,8 +17,8 @@ class BuyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    bool darkMode = themeProvider.isdarkMode;
+    // final themeProvider = Provider.of<ThemeProvider>(context);
+    // bool darkMode = themeProvider.isdarkMode;
     
     mq = MediaQuery.of(context).size;
     return Scaffold(
@@ -131,7 +130,7 @@ class BuyPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(left:mq.width*.04),
-                  child: Text('₹ ${price??''}',style: TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.black),),
+                  child: Text('₹ ${price??''}',style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.black),),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left:mq.width*.37,top:mq.height*.01),

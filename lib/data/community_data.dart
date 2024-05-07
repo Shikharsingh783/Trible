@@ -7,8 +7,21 @@ class CommunityData extends ChangeNotifier{
   List<Community> communityList = [
     //default community
     Community(name: 'School Community', creator: '@random123', services: [
-      Service(imagePath: 'images/s1.png', title: 'responsive web design', price: '4000', domain: 'Website Development',)
+      Service(imagePath: 'images/s1.png', title: 'responsive web design', price: '4000', domain: 'Website Development',),
+      
+      Service(imagePath: 'images/s1.png', title: 'responsive web design', price: '4000', domain: 'Website Development',),
+
+
+    ]),
+
+    Community(name: 'Office Community', creator: '@ramdom123', services: [
+      Service(imagePath: 'images/s2.png', title: 'UI', price: '3990', domain: 'App Development'),
+
+      Service(imagePath: 'images/s2.png', title: 'UI', price: '3990', domain: 'App Development'),
+
+      Service(imagePath: 'images/s2.png', title: 'UI', price: '3990', domain: 'App Development')
     ])
+    
   ];
 
   //get the list of community
@@ -36,8 +49,8 @@ class CommunityData extends ChangeNotifier{
 
   int numberOfServicesInCommunity(String communityName){
 
-    Community relevemtCommunity = getReleventCommunity(communityName);
-    return relevemtCommunity.services.length;
+    Community releventCommunity = getReleventCommunity(communityName);
+    return releventCommunity.services.length;
   }
 
   Community getReleventCommunity(String communityName){
@@ -46,5 +59,4 @@ class CommunityData extends ChangeNotifier{
     return relevantCommunity;
   }
 
-  
 }

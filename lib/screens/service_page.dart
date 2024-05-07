@@ -33,7 +33,7 @@ class _ServicePageState extends State<ServicePage> {
         children: [
 
            TextField(
-            controller: newServiceNameController,
+            controller: newServiceDomainController,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Domain'
@@ -112,90 +112,101 @@ class _ServicePageState extends State<ServicePage> {
 
 
   @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      floatingActionButton: FloatingActionButton.extended(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        onPressed: createNewService, label: Text('New Service +',style: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.w500),),),
-      endDrawer: MyDrawer(),
-
-      body: NestedScrollView(headerSliverBuilder: (context, innerBoxIsScrolled)=>
-      [
-        MySliverAppBar(communityName: widget.communityName, onPressed: Scaffold.of(context).openEndDrawer,)
-      ],
-
-      body: Consumer<CommunityData>(builder: (context, value, child)=>
-      Column(children: [
-
-        Expanded(
-        child: ListView.builder(
-        itemCount: value.getCommunityList().length,
-        itemBuilder: (context, index)=>
-        GestureDetector(
-          onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=> BuyPage(
-
-            service: value.getReleventCommunity(widget.communityName).services[index].title.toUpperCase(),
-
-           
-
-            imagePath: value.getReleventCommunity(widget.communityName).services[index].imagePath,
-
-            community: widget.communityName,
-
-            price: value.getReleventCommunity(widget.communityName).services[index].price,
-
-            title: value.getReleventCommunity(widget.communityName).services[index].domain,
-          )));},
-          child: Container(
-            width: 190,
-          decoration: BoxDecoration(
-            color: Colors.white,
-              boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.4),
-            spreadRadius: 1,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-              ],
-              borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.3))),
-          
-          
-                
-              child:Column(   
-                children: [
-              
-                  Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Image.asset(value.getReleventCommunity(widget.communityName).services[index].imagePath,),
-                ),
-                  
-                  Padding(
-                    padding: const EdgeInsets.only(right:5,left: 2),
-                    child: Text(value.getReleventCommunity(widget.communityName).services[index].title,style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.black),),
-                  ),
-              
-                  RatingBar.builder(
-            itemSize: 25,
-            itemBuilder: (context, _) => const Icon(
-            Icons.star,
-            color: Color.fromRGBO(0, 224, 125, 1),
-          ), onRatingUpdate: (rating) {
-          
-          },),
-              
-                ],
-              ),
-                                         
-                                            ),
-        )
-                          ),
-                        )
-      ],)
-      )
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    floatingActionButton: FloatingActionButton.extended(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      onPressed: createNewService,
+      label: Text(
+        'New Service +',
+        style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w500),
       ),
-    );
-  }
+    ),
+    endDrawer: MyDrawer(),
+    body: NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+        MySliverAppBar(
+          communityName: widget.communityName,
+          onPressed: Scaffold.of(context).openEndDrawer,
+        )
+      ],
+      body: Consumer<CommunityData>(
+        builder: (context, value, child) => Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15,right: 15),
+                child: GridView.builder(
+                  itemCount: value.numberOfServicesInCommunity(widget.communityName),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Adjust the number of columns here
+                    crossAxisSpacing: 25, // Space between columns
+                    mainAxisSpacing: 4.0, // Space between rows
+                  ),
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BuyPage(
+                            service: value.getReleventCommunity(widget.communityName).services[index].title.toUpperCase(),
+                            imagePath: value.getReleventCommunity(widget.communityName).services[index].imagePath,
+                            community: widget.communityName,
+                            price: value.getReleventCommunity(widget.communityName).services[index].price,
+                            title: value.getReleventCommunity(widget.communityName).services[index].domain,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.3)),
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Image.asset(value.getReleventCommunity(widget.communityName).services[index].imagePath),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5, left: 2),
+                            child: Text(
+                              value.getReleventCommunity(widget.communityName).services[index].title,
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                            ),
+                          ),
+                          RatingBar.builder(
+                            unratedColor: Colors.grey.shade300,
+                            initialRating: 2,
+                            itemSize: 25,
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Color.fromRGBO(0, 224, 125, 1),
+                            ),
+                            onRatingUpdate: (rating) {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 }
