@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/components/my_community_tile.dart';
 import 'package:trible/components/my_drawer.dart';
 import 'package:trible/data/community_data.dart';
+import 'package:trible/database/community_database.dart';
+import 'package:trible/database/firestore.dart';
+import 'package:trible/models/community.dart';
 import 'package:trible/screens/service_page.dart';
 import 'package:trible/themes/theme_provider.dart';
 
@@ -16,6 +20,31 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+
+  final communityDatabase db = communityDatabase();
+
+  
+
+  //get data form database
+//   Future<void> fetchData() async {
+//   try {
+//     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('community').get();
+//     List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+    
+//     // Process the documents
+//     for (var document in documents) {
+//       Map<String, dynamic> data = document.data();
+//       String communityName = data['community'];
+//       String creator = data['creator'];
+      
+//       // Do something with the data
+//       print('Community Name: $communityName');
+//       print('Creator: $creator');
+//     }
+//   } catch (error) {
+//     print('Error fetching data: $error');
+//   }
+// }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -101,14 +130,18 @@ class _homeState extends State<home> {
   }
 
   void save(){
+
+    db.addCommunity(newCommunityNameController.text, newCommunityCreatorController.text);
+
+newCommunityNameController.clear();
+    newCommunityCreatorController.clear();
     String newCommunityName = newCommunityNameController.text;
     String newCommunityCreator = newCommunityCreatorController.text;
     Provider.of<CommunityData>(context, listen: false).addCommunity(newCommunityName, newCommunityCreator);
 
      Navigator.pop(context);
   }
-
-  void cancel(){
+ cancel(){
     Navigator.pop(context);
     newCommunityNameController.clear();
     newCommunityCreatorController.clear();
@@ -189,16 +222,44 @@ class _homeState extends State<home> {
         const SizedBox(height: 10,),
 
         //to display the communities created
-        Expanded(
+        StreamBuilder(stream: db.getCommunityStream(), builder: (context,snapshot){
+
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          //get all community
+          final community = snapshot.data!.docs;
+
+          //no data?
+              if(snapshot.data == null || community.isEmpty){
+                return Center(
+                  child: Padding(padding: const EdgeInsets.all(25),
+                  child: Text("No Community, create one",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                  ),
+                );
+              }
+
+          return Expanded(
           child: ListView.builder(
-            itemCount: value.getCommunityList().length,
+            itemCount: community.length,
             itemBuilder: (context, index){
+
+              //get each community
+              final communities = community[index];
+
+              //get data from each community
+              String com = communities['community'];
+              String cre = communities['creator'];
           return Communitytile(
-            name: value.getCommunityList()[index].name,
-              creator: value.getCommunityList()[index].creator,
+            name: com,
+              creator: cre,
               onPressed:()=> goToServicePage(value.getCommunityList()[index].name),
               );
-        }))
+                  }));
+        })
 
 
 ],),
@@ -206,5 +267,4 @@ class _homeState extends State<home> {
       ,
     ),
     );
-  }
-}
+  }}

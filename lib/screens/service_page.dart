@@ -134,6 +134,21 @@ Widget build(BuildContext context) {
       body: Consumer<CommunityData>(
         builder: (context, value, child) => Column(
           children: [
+    
+             Padding(
+               padding: const EdgeInsets.only(top:15,left: 15,right:15),
+               child: TextField(
+                            cursorColor: Colors.grey,
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                              focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                              contentPadding: const EdgeInsets.only(left: 20,),
+                              hintText: "Search",
+                              hintStyle: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500)
+                            ),
+                          ),
+             ),
+    
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15,right: 15),
@@ -141,8 +156,9 @@ Widget build(BuildContext context) {
                   itemCount: value.numberOfServicesInCommunity(widget.communityName),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Adjust the number of columns here
-                    crossAxisSpacing: 25, // Space between columns
-                    mainAxisSpacing: 4.0, // Space between rows
+                    crossAxisSpacing: 20, // Space between columns
+                    mainAxisSpacing: 20, // Space between rows
+                    childAspectRatio: 0.85
                   ),
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
@@ -174,27 +190,39 @@ Widget build(BuildContext context) {
                         border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.3)),
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Image.asset(value.getReleventCommunity(widget.communityName).services[index].imagePath),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Image.asset(value.getReleventCommunity(widget.communityName).services[index].imagePath),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5, left: 2),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 20,left: 5),
+                                  child: Text(
+                                    value.getReleventCommunity(widget.communityName).services[index].title,
+                                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 5, left: 2),
-                            child: Text(
-                              value.getReleventCommunity(widget.communityName).services[index].title,
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                            padding: const EdgeInsets.all(4.0),
+                            child: RatingBar.builder(
+                              unratedColor: Colors.grey.shade300,
+                              initialRating: 2,
+                              itemSize: 22,
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Color.fromRGBO(0, 224, 125, 1),
+                              ),
+                              onRatingUpdate: (rating) {},
                             ),
-                          ),
-                          RatingBar.builder(
-                            unratedColor: Colors.grey.shade300,
-                            initialRating: 2,
-                            itemSize: 25,
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Color.fromRGBO(0, 224, 125, 1),
-                            ),
-                            onRatingUpdate: (rating) {},
                           ),
                         ],
                       ),

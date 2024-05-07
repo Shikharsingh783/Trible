@@ -10,9 +10,11 @@ import 'package:trible/themes/theme_provider.dart';
 
 
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey = 'pk_test_51MZej1SHW9a46lSlS36AI09ccrlQmQWk4cNs3OmMJM7v1ti0hDM7eBWbZLB7SGPfwNprRaUQUBcJC0Q5ljY2FcCJ005gW6cNdQ';
-  
+  await Stripe.instance.applySettings();
+
   // Initialize Firebase
   await Firebase.initializeApp();
   
