@@ -1,14 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/components/my_community_tile.dart';
 import 'package:trible/components/my_drawer.dart';
 import 'package:trible/data/community_data.dart';
 import 'package:trible/database/community_database.dart';
-import 'package:trible/database/firestore.dart';
-import 'package:trible/models/community.dart';
+
 import 'package:trible/screens/service_page.dart';
 import 'package:trible/themes/theme_provider.dart';
 
@@ -133,10 +131,12 @@ class _homeState extends State<home> {
 
     db.addCommunity(newCommunityNameController.text, newCommunityCreatorController.text);
 
-newCommunityNameController.clear();
+    newCommunityNameController.clear();
     newCommunityCreatorController.clear();
+
     String newCommunityName = newCommunityNameController.text;
     String newCommunityCreator = newCommunityCreatorController.text;
+
     Provider.of<CommunityData>(context, listen: false).addCommunity(newCommunityName, newCommunityCreator);
 
      Navigator.pop(context);
@@ -256,7 +256,7 @@ newCommunityNameController.clear();
           return Communitytile(
             name: com,
               creator: cre,
-              onPressed:()=> goToServicePage(value.getCommunityList()[index].name),
+              onPressed:()=> goToServicePage(com),
               );
                   }));
         })

@@ -5,7 +5,7 @@ import 'package:trible/models/service.dart';
 class CommunityData extends ChangeNotifier{
 
   List<Community> communityList = [
-    //default community
+    // default community
     Community(name: 'School Community', creator: '@random123', services: [
       Service(imagePath: 'images/s1.png', title: 'responsive web design', price: '4000', domain: 'Website Development',),
       
@@ -14,7 +14,7 @@ class CommunityData extends ChangeNotifier{
 
     ]),
 
-    Community(name: 'Office Community', creator: '@ramdom123', services: [
+    Community(name: 'Office Community', creator: '@ramdom12', services: [
       Service(imagePath: 'images/s2.png', title: 'UI', price: '3990', domain: 'App Development'),
 
       Service(imagePath: 'images/s2.png', title: 'UI', price: '3990', domain: 'App Development'),

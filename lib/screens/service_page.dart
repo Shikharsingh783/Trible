@@ -8,16 +8,22 @@ import 'package:trible/components/my_drawer.dart';
 import 'package:trible/components/sliverAppBar.dart';
 import 'package:trible/components/widgets/buy_page.dart';
 import 'package:trible/data/community_data.dart';
+import 'package:trible/database/service_Database.dart';
 
 class ServicePage extends StatefulWidget {
+
+  
+
   final String communityName;
-  const ServicePage({super.key, required this.communityName});
+  ServicePage({super.key, required this.communityName});
 
   @override
   State<ServicePage> createState() => _ServicePageState();
 }
 
 class _ServicePageState extends State<ServicePage> {
+
+  final ServiceDatabase db = ServiceDatabase();
 
   final newServiceNameController = TextEditingController();
   final newServiceImageController = TextEditingController();
@@ -92,7 +98,10 @@ class _ServicePageState extends State<ServicePage> {
   }
 
   void save(){
-    Provider.of<CommunityData>(context, listen: false).addServices(widget.communityName, newServiceNameController.text, newServiceImageController.text, newServicePriceController.text, newServiceDomainController.text );
+
+    db.addService(newServiceDomainController.text, newServiceNameController.text, newServiceImageController.text, newServicePriceController.text);
+
+    // Provider.of<CommunityData>(context, listen: false).addServices(widget.communityName, newServiceNameController.text, newServiceImageController.text, newServicePriceController.text, newServiceDomainController.text );
 
 
      Navigator.pop(context);
@@ -131,108 +140,148 @@ Widget build(BuildContext context) {
           onPressed: Scaffold.of(context).openEndDrawer,
         )
       ],
-      body: Consumer<CommunityData>(
-        builder: (context, value, child) => Column(
-          children: [
-    
-             Padding(
-               padding: const EdgeInsets.only(top:15,left: 15,right:15),
-               child: TextField(
-                            cursorColor: Colors.grey,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
-                              focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
-                              contentPadding: const EdgeInsets.only(left: 20,),
-                              hintText: "Search",
-                              hintStyle: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500)
-                            ),
-                          ),
-             ),
-    
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15,right: 15),
-                child: GridView.builder(
-                  itemCount: value.numberOfServicesInCommunity(widget.communityName),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Adjust the number of columns here
-                    crossAxisSpacing: 20, // Space between columns
-                    mainAxisSpacing: 20, // Space between rows
-                    childAspectRatio: 0.85
-                  ),
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BuyPage(
-                            service: value.getReleventCommunity(widget.communityName).services[index].title.toUpperCase(),
-                            imagePath: value.getReleventCommunity(widget.communityName).services[index].imagePath,
-                            community: widget.communityName,
-                            price: value.getReleventCommunity(widget.communityName).services[index].price,
-                            title: value.getReleventCommunity(widget.communityName).services[index].domain,
+      body: Column(
+        children: [
+          
+           Padding(
+             padding: const EdgeInsets.only(top:15,left: 15,right:15),
+             child: TextField(
+                          cursorColor: Colors.grey,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                            focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: Color.fromRGBO(0, 224, 125, 1)),borderRadius: BorderRadius.circular(10)),
+                            contentPadding: const EdgeInsets.only(left: 20,),
+                            hintText: "Search",
+                            hintStyle: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500)
                           ),
                         ),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.4),
-                            spreadRadius: 1,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.3)),
+           ),
+          
+          StreamBuilder(
+            stream: db.getServiceStream(),
+             builder: (context,snapshot){
+      
+             if(snapshot.connectionState == ConnectionState.waiting){
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      
+        //get all community
+        final services = snapshot.data!.docs;
+      
+        //no data?
+            if(snapshot.data == null || services.isEmpty){
+              return Center(
+                child: Padding(padding: const EdgeInsets.all(25),
+                child: Text("No service, create one",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                ),
+              );
+            }
+      
+            return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15,right: 15),
+              child: GridView.builder(
+                itemCount: services.length,
+      
+           
+      
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Adjust the number of columns here
+                  crossAxisSpacing: 20, // Space between columns
+                  mainAxisSpacing: 20, // Space between rows
+                  childAspectRatio: 0.85
+                ),
+                itemBuilder: (context, index) {
+      
+              //get each service
+              final serv = services[index];
+
+              print('Serv: $serv');
+  // print('Domain: ${serv['domain']}');
+  // print('Image: ${serv['image']}');
+  // print('Price: ${serv['price']}');
+  // print('Service: ${serv['service']}');
+      
+              String dom = serv['domain'];
+              String img = serv['image'];
+              String pri = serv['price'];
+              String name = serv['service'];
+      
+                  
+                  return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BuyPage(
+                          service: name.toUpperCase(),
+                          imagePath: img,
+                          community: widget.communityName,
+                          price: pri,
+                          title: dom,
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Image.asset(value.getReleventCommunity(widget.communityName).services[index].imagePath),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 5, left: 2),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 20,left: 5),
-                                  child: Text(
-                                    value.getReleventCommunity(widget.communityName).services[index].title,
-                                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: RatingBar.builder(
-                              unratedColor: Colors.grey.shade300,
-                              initialRating: 2,
-                              itemSize: 22,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Color.fromRGBO(0, 224, 125, 1),
-                              ),
-                              onRatingUpdate: (rating) {},
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.3)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Image.asset(img),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 28,left: 5),
+                              child: Text(
+                               name,
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: RatingBar.builder(
+                            unratedColor: Colors.grey.shade300,
+                            initialRating: 2,
+                            itemSize: 22,
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Color.fromRGBO(0, 224, 125, 1),
+                            ),
+                            onRatingUpdate: (rating) {},
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                );}
               ),
             ),
-          ],
-        ),
+          );
+      
+          })
+        ],
       ),
     ),
   );
