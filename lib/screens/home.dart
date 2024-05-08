@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/components/my_community_tile.dart';
@@ -247,6 +248,12 @@ class _homeState extends State<home> {
             itemCount: community.length,
             itemBuilder: (context, index){
 
+              DocumentSnapshot document = snapshot.data!.docs[index];
+              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+
+              String communityId = document.id;
+
+
               //get each community
               final communities = community[index];
 
@@ -256,7 +263,7 @@ class _homeState extends State<home> {
           return Communitytile(
             name: com,
               creator: cre,
-              onPressed:()=> goToServicePage(com),
+              onPressed:()=> goToServicePage(com), deleteFunction: (BuildContext ) {db.deleteCommunity(communityId) ; }, editFunction: (BuildContext ) {  },
               );
                   }));
         })

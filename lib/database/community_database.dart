@@ -13,6 +13,11 @@ class communityDatabase{
     });
   }
 
+  //delete community
+  Future<void> deleteCommunity(String communityId)async{
+    await FirebaseFirestore.instance.collection('community').doc(communityId).delete();
+  }
+
   //get community from database
   Stream<QuerySnapshot> getCommunityStream(){
     final communityStream = FirebaseFirestore.instance.collection("community").orderBy('TimeStamp',descending: true).snapshots();
