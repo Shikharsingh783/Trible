@@ -213,9 +213,52 @@ class _ServicePageState extends State<ServicePage> {
                             );
                           },
 
-                          onLongPress: (){
-                            db.deleteService(widget.communityName, serviceId);
-                          },
+onLongPress: () {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('You want to remove the service?'),
+      content: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: const [
+                Icon(Icons.warning_amber,color: Colors.white24),
+
+                SizedBox(width: 15,),
+
+                Expanded(
+                  child: Text(
+                    'Deleting service will permanently delete it from the database.',
+                    style: TextStyle(fontSize: 16,color: Colors.white24),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => db.deleteService(widget.communityName, serviceId),
+                  child: Text("Sure"),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Cancel"),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+},
+
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
