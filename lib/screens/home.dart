@@ -50,8 +50,8 @@ class _homeState extends State<home> {
   final newCommunityNameController = TextEditingController();
   final newCommunityCreatorController = TextEditingController();
 
-  void goToServicePage(String communityname){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>ServicePage(communityName: communityname,)));
+  void goToServicePage(String communityname, String creatorName){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>ServicePage(communityName: communityname, creatorName: creatorName,)));
   }
 
  void createNewCommunity(){
@@ -263,7 +263,7 @@ class _homeState extends State<home> {
           return Communitytile(
             name: com,
               creator: cre,
-              onPressed:()=> goToServicePage(com), deleteFunction: (BuildContext ) {db.deleteCommunity(communityId) ; }, editFunction: (BuildContext ) {  },
+              onPressed:()=> goToServicePage(com,cre), deleteFunction: (BuildContext ) {db.deleteCommunity(communityId) ; }, editFunction: (BuildContext ) {  },
               );
                   }));
         })

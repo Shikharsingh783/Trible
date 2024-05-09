@@ -4,6 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 
 
 import 'package:slide_to_act/slide_to_act.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 
 class MySlide extends StatefulWidget {
@@ -20,13 +21,16 @@ class _MySlideState extends State<MySlide> {
     return Padding(
       padding: const EdgeInsets.only(right: 15, left: 15),
       child: SlideAction(
-        animationDuration: Duration(milliseconds: 600),
+        animationDuration: const Duration(milliseconds: 600),
         text: "Slide to Pay",
         textStyle: const TextStyle(fontSize: 25,color: Colors.black),
         elevation: 0,
         innerColor: Theme.of(context).colorScheme.primary,
         borderRadius: 15,
-        onSubmit: () {},
+        onSubmit: () {
+          launchUrlString('https://buy.stripe.com/test_fZe6pXcNbduG1qgbIS');
+          // Navigator.pop(context);
+        },
        
       ),
     );

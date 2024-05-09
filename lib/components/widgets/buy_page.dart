@@ -6,13 +6,14 @@ import 'package:trible/screens/payment_page.dart';
 late Size mq;
 
 class BuyPage extends StatelessWidget {
-  const BuyPage({super.key, this.title, this.community, this.service, this.imagePath, this.price});
+  const BuyPage({super.key, this.title, this.community, this.service, this.imagePath, this.price, required this.creator});
 
   final String? title;
   final String? community;
   final String? service;
   final String? imagePath;
   final String? price;
+  final String? creator;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class BuyPage extends StatelessWidget {
                            children: [
                               Text(service??"",style: const TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.w700),),
                            const SizedBox(height: 2,),
-                           const Text("offered by Jane Doe",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w300,color: Colors.black),),
+                           Text("offered by $creator",style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w300,color: Colors.black),),
                            ],
                           ),
                         ),
@@ -142,7 +143,7 @@ class BuyPage extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left:mq.width*.37,top:mq.height*.005),
                                   child: GestureDetector(
-                                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>const PaymentPage()));},
+                                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage(imageUrl: imagePath.toString(), service: service.toString(), creator: creator.toString(), price: price.toString(),)));},
                                     child: Container(
                                       height: 51,
                                       width: 136,

@@ -11,8 +11,9 @@ import 'package:trible/database/service_Database.dart';
 
 class ServicePage extends StatefulWidget {
   final String communityName;
+  final String creatorName;
 
-  ServicePage({Key? key, required this.communityName}) : super(key: key);
+  ServicePage({Key? key, required this.communityName, required this.creatorName}) : super(key: key);
 
   @override
   State<ServicePage> createState() => _ServicePageState();
@@ -208,6 +209,7 @@ class _ServicePageState extends State<ServicePage> {
                                   community: widget.communityName,
                                   price: pri,
                                   title: dom,
+                                  creator: widget.creatorName,
                                 ),
                               ),
                             );
@@ -243,7 +245,8 @@ onLongPress: () {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () => db.deleteService(widget.communityName, serviceId),
+                  onPressed: () { db.deleteService(widget.communityName, serviceId);
+                   Navigator.pop(context);},
                   child: Text("Sure"),
                 ),
                 TextButton(
