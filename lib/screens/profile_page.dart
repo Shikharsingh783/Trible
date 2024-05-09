@@ -5,12 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:trible/resources/add_data.dart';
 import 'package:trible/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-
-
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -21,36 +17,97 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   Uint8List? _image;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  void selectImage()async{
+  String? userName;
+  String? userEmail;
+  String? userJob;
+  String? twitterLink;
+  String? githubLink;
+  String? linkedinLink;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      DocumentSnapshot userData =
+          await _firestore.collection('users').doc(user.uid).get();
+      Map<String, dynamic>? data = userData.data() as Map<String, dynamic>?;
+
+      if (data != null && data.isNotEmpty) {
+        setState(() {
+          userName = data['firstName'] + ' ' + data['lastName'];
+          userEmail = user.email;
+          userJob = data['service'];
+        });
+      } else {
+        print('User data not found or empty');
+      }
+
+      // Fetch profile details
+      DocumentSnapshot profileData =
+          await _firestore.collection('profileLinks').doc(user.uid).get();
+      Map<String, dynamic>? profile = profileData.data() as Map<String, dynamic>?;
+
+      if (profile != null && profile.isNotEmpty) {
+        setState(() {
+          twitterLink = profile['twitter'];
+          githubLink = profile['github'];
+          linkedinLink = profile['linkedin'];
+        });
+      } else {
+        print('Profile data not found or empty');
+      }
+    } else {
+      print('User not logged in');
+    }
+  }
+
+  Future<void> uploadImage() async {
+  try {
+    // Check if an image is selected
+    if (_image != null) {
+      // Get a reference to the storage bucket
+      firebase_storage.Reference storageReference = firebase_storage.FirebaseStorage.instance.ref().child('profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+      // Upload the file to Firebase Storage
+      await storageReference.putData(_image!);
+
+      // Get the download URL of the uploaded image
+      String imageUrl = await storageReference.getDownloadURL();
+
+      // Update the user's profile with the image URL or save it as needed
+      // For example, you can save the URL in Firestore
+      // firestore.collection('users').doc(user.uid).update({'profileImageUrl': imageUrl});
+
+      // Show a success message or perform any other actions
+      print('Image uploaded successfully. URL: $imageUrl');
+    } else {
+      // Handle case when no image is selected
+      print('No image selected');
+    }
+  } catch (e) {
+    // Handle any errors that occur during the upload process
+    print('Error uploading image: $e');
+  }
+}
+
+  void selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
       _image = img;
     });
+
+
   }
 
-  void saveProfile()async{
-    String resp = await StoreData().saveData(file: _image!);
-  }
-
-
-  //document ids 
-  List<String> docIds = [];
-
-  //get document ids
-  Future getDocId()async{
-    await FirebaseFirestore.instance.collection("users").get().then((snapshot)=> snapshot.docs.forEach((document){
-      print(document.reference);
-      docIds.add(document.reference.id);
-    }));
-  }
-
-  @override
-  void initState(){
-    getDocId();
-    super.initState();
-  }
-  
+ 
 
   Future<void> _launchURL(String url) async {
     if (!await canLaunch(url)) {
@@ -69,11 +126,13 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
-          automaticallyImplyLeading: false, // Disable default leading icon
-          title: Text("P  R  O  F  I  L  E",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
+          automaticallyImplyLeading: false,
+          title: Text(
+            "P  R  O  F  I  L  E",
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          ),
           leading: GestureDetector(
             onTap: () {
-              // Handle leading icon tap here
               Navigator.pop(context);
             },
             child: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -86,48 +145,50 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Center(
                 child: Stack(
                   children: [
-                   
-                    _image != null?
-                    CircleAvatar(
-                      radius: 70,
-                      backgroundImage: MemoryImage(_image!),
-                    ):
-                    const CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.white,
+                    _image != null
+                        ? CircleAvatar(
+                            radius: 70,
+                            backgroundImage: MemoryImage(_image!),
+                          )
+                        : const CircleAvatar(
+                            radius: 70,
+                            backgroundColor: Colors.white,
+                          ),
+                    Positioned(
+                      bottom: 8,
+                      right: 8,
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              selectImage();
+                            },
+                            child: FaIcon(
+                              FontAwesomeIcons.camera,
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 17,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  Positioned(
-                    bottom: 8,
-                    right: 8,
-                    child: Container( 
-                      height: 30,
-                      width: 30,
-                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).colorScheme.surface,
-                      ),
-                      child: Center(child: GestureDetector(
-                        onTap: () {
-                          selectImage();
-                          saveProfile();
-                        },
-                        child: FaIcon(FontAwesomeIcons.camera,color: Theme.of(context).colorScheme.secondary,size: 17,))),
-                      ),
-                  )
-                  // const Positioned(
-                  //   bottom: 9,
-                  //   right: 9,
-                  //   child: FaIcon(FontAwesomeIcons.camera,color: Colors.grey,))
-          ]),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 25,),
+            const SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: () {
-                    _launchURL("https://twitter.com/Shikhar54745760");
+                    _launchURL(twitterLink ?? "");
                   },
                   child: Stack(
                     alignment: Alignment.center,
@@ -154,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(width: 15),
                 GestureDetector(
                   onTap: () {
-                    _launchURL('https://github.com/Shikharsingh783');
+                    _launchURL(githubLink ?? "");
                   },
                   child: Stack(
                     alignment: Alignment.center,
@@ -181,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(width: 15),
                 GestureDetector(
                   onTap: () {
-                    _launchURL("https://www.linkedin.com/in/shikhar-singh1/");
+                    _launchURL(linkedinLink ?? "");
                   },
                   child: Stack(
                     alignment: Alignment.center,
@@ -202,28 +263,28 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 40,
                         ),
                       ),
-                      const SizedBox(width: 10,),
+                      const SizedBox(width: 10),
                     ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(height: 30),
             Container(
               padding: const EdgeInsets.all(16),
-              margin: const EdgeInsetsDirectional.all(25),
+              margin: const EdgeInsets.all(25),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.all(6.0),
                 child: Row(
                   children: [
-                    Text("N A M E :", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("N A M E :", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
                     Padding(
-                      padding: EdgeInsets.only(left:25),
-                      child: Text("", style: TextStyle(fontWeight: FontWeight.bold)),
+                      padding: EdgeInsets.only(left: 55),
+                      child: Text('${userName ?? "Loading..."}'.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black)),
                     ),
                   ],
                 ),
@@ -231,7 +292,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Container(
               padding: const EdgeInsets.all(16),
-              margin: const EdgeInsetsDirectional.only(start: 25,end: 25),
+              margin: const EdgeInsetsDirectional.only(start: 25, end: 25),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
@@ -239,12 +300,11 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("E M A I L :", style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text("E M A I L :", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
                     Padding(
-                      padding: const EdgeInsets.only(left:20),
-                      child: Text(FirebaseAuth.instance.currentUser!.email ?? '', style: const TextStyle(fontWeight: FontWeight.bold)),
+                      padding: const EdgeInsets.only(left: 48),
+                      child: Text(userEmail ?? "", style: const TextStyle(fontWeight: FontWeight.bold,color:Colors.black)),
                     ),
                   ],
                 ),
@@ -252,34 +312,24 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Container(
               padding: const EdgeInsets.all(16),
-              margin: const EdgeInsetsDirectional.all(25),
+              margin: const EdgeInsets.all(25),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(6.0),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
                 child: Row(
                   children: [
-                    Text("S E R V I C E :", style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text("S E R V I C E :", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
                     Padding(
-                      padding: EdgeInsets.only(left:25),
-                      child: Text("", style: TextStyle(fontWeight: FontWeight.bold)),
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text('${userJob ?? ""}'.toUpperCase(), style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black)),
                     ),
                   ],
                 ),
               ),
             ),
-            // Expanded(child: FutureBuilder(future: getDocId(), builder: (context,snapshot)
-            // {
-            //   return ListView.builder(itemBuilder: (context,index){
-            //     return ListTile(
-            //       title: GetUserName(documentId: docIds[index])
-            //     );
-            //   });
-            // }
-            // ))
-           
           ],
         ),
       ),

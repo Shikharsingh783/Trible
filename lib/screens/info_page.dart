@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trible/database/profile_database.dart';
 import 'package:trible/screens/NUS2.dart';
 
 class InfoPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class InfoPage extends StatefulWidget {
 }
 
 class _NUS1State extends State<InfoPage> {
+  final ProfileDatabase db = ProfileDatabase();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController _twitter = TextEditingController();
@@ -25,24 +28,36 @@ class _NUS1State extends State<InfoPage> {
     super.dispose();
   }
 
-  //add user details
+  
 
 
-  Future<void> addUserDetails(String twitter, String github, String linkedin)async{
-    await FirebaseFirestore.instance.collection("users").add(
-      {
-        "twitter": twitter,
-        "github": github,
-        "linkedin": linkedin
-      }
-    );
-  }
+  void _submitForm(BuildContext context)async{
 
 
-  void _submitForm(BuildContext context){
-    if(_formKey.currentState!.validate()){
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NUS2()),(route)=>false);
+
+    if (_formKey.currentState!.validate()) {
+    // Get the current user's UID
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
+    
+    // Check if userId is not null before proceeding
+    if (userId != null) {
+      // Add user details using userId
+      await db.addProfileDetails(
+        userId, // Pass the userId as the 4th argument
+        _twitter.text.trim(),
+        _github.text.trim(),
+        _linkedin.text.trim(),
+      );
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => NUS2()),
+        (route) => false,
+      );
+    } else {
+      print("Error: Current user ID is null");
     }
+  }
   }
 
   @override
@@ -79,6 +94,7 @@ class _NUS1State extends State<InfoPage> {
                   SizedBox(
                     width: 380,
                     child: TextFormField(
+                      style: const TextStyle(color: Colors.black),
                       controller: _twitter,
                       validator: (value){
                         if(value!.isEmpty){
@@ -103,6 +119,7 @@ class _NUS1State extends State<InfoPage> {
                   SizedBox(
                     width: 380,
                     child: TextFormField(
+                      style: const TextStyle(color: Colors.black),
                       controller: _github,
                       validator: (value){
                         if(value!.isEmpty){
@@ -127,6 +144,7 @@ class _NUS1State extends State<InfoPage> {
                     width: 380,
 
                     child: TextFormField(
+                      style: const TextStyle(color: Colors.black),
                       controller: _linkedin,
                       validator: (value){
                         if(value!.isEmpty){
@@ -147,10 +165,7 @@ class _NUS1State extends State<InfoPage> {
                       onTap: () {
                         _submitForm(context);
 
-                        //add user details
-                        addUserDetails(_twitter.text.trim(),
-                         _github.text.trim(),
-                          _linkedin.text.trim(),);
+                        
                       }
                       ,
                       child: Container(

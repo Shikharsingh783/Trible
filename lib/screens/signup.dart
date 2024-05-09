@@ -40,6 +40,12 @@ class _signupState extends State<signup> {
         password: _passwordController.text,
       );
 
+      final User? user = FirebaseAuth.instance.currentUser;
+    final String? uid = user?.uid;
+
+     // Print the UID of the signed-in user
+    print("UID: $uid");
+
 
       setState(() {
         isLoading = false;

@@ -184,7 +184,7 @@ class _ServicePageState extends State<ServicePage> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20,
-                        childAspectRatio: 0.85,
+                        childAspectRatio: 0.8,
                       ),
                       itemBuilder: (context, index) {
 

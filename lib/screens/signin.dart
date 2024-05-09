@@ -40,6 +40,15 @@ void initState() {
     email: _email.text,
     password: _password.text,
   );
+
+// Access the current user object to get the UID
+    final User? user = FirebaseAuth.instance.currentUser;
+    final String? uid = user?.uid;
+
+     // Print the UID of the signed-in user
+    print("UID: $uid");
+
+
    setState(() {
         isLoading = false;
       });

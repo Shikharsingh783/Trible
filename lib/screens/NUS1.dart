@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trible/database/profile_database.dart';
 import 'package:trible/screens/info_page.dart';
 
 class NUS1 extends StatefulWidget {
@@ -10,6 +12,8 @@ class NUS1 extends StatefulWidget {
 }
 
 class _NUS1State extends State<NUS1> {
+
+  final ProfileDatabase db = ProfileDatabase();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController _firstName = TextEditingController();
@@ -25,25 +29,33 @@ class _NUS1State extends State<NUS1> {
     super.dispose();
   }
 
-  //add user details
 
+  void _submitForm(BuildContext context) async {
+  if (_formKey.currentState!.validate()) {
+    // Get the current user's UID
+    String? userId = FirebaseAuth.instance.currentUser?.uid;
+    
+    // Check if userId is not null before proceeding
+    if (userId != null) {
+      // Add user details using userId
+      await db.addUserDetails(
+        userId, // Pass the userId as the 4th argument
+        _firstName.text.trim(),
+        _lastName.text.trim(),
+        _service.text.trim(),
+      );
 
-  Future<void> addUserDetails(String firstName, String lastName, String service)async{
-    await FirebaseFirestore.instance.collection("users").add(
-      {
-        "firstName": firstName,
-        "lastName": lastName,
-        "service": service
-      }
-    );
-  }
-
-
-  void _submitForm(BuildContext context){
-    if(_formKey.currentState!.validate()){
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>InfoPage()),(route)=>false);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => InfoPage()),
+        (route) => false,
+      );
+    } else {
+      print("Error: Current user ID is null");
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +91,7 @@ class _NUS1State extends State<NUS1> {
                   SizedBox(
                     width: 380,
                     child: TextFormField(
+                      style: const TextStyle(color: Colors.black),
                       controller: _firstName,
                       validator: (value){
                         if(value!.isEmpty){
@@ -103,6 +116,7 @@ class _NUS1State extends State<NUS1> {
                   SizedBox(
                     width: 380,
                     child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
                       controller: _lastName,
                       validator: (value){
                         if(value!.isEmpty){
@@ -127,6 +141,7 @@ class _NUS1State extends State<NUS1> {
                     width: 380,
     
                     child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
                       controller: _service,
                       validator: (value){
                         if(value!.isEmpty){
@@ -146,11 +161,6 @@ class _NUS1State extends State<NUS1> {
                     child: GestureDetector(
                       onTap: () {
                         _submitForm(context);
-    
-                        //add user details
-                        addUserDetails(_firstName.text.trim(),
-                         _lastName.text.trim(),
-                          _service.text.trim(),);
                       }
                       ,
                       child: Container(

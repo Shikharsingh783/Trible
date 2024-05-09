@@ -94,8 +94,8 @@ class SettingsPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom:50),
               child: Container(
-                padding: EdgeInsets.all(16),
-                margin: EdgeInsetsDirectional.all(25),
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsetsDirectional.all(25),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondary,
                   borderRadius: BorderRadius.circular(12),
@@ -109,7 +109,7 @@ class SettingsPage extends StatelessWidget {
                         return AlertDialog(
                           
                           backgroundColor: Theme.of(context).colorScheme.surface,
-                          title: Text("L O G O U T",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w600),),
+                          title: const Text("L O G O U T",style: TextStyle(color:Color.fromRGBO(0, 224, 145, 1),fontSize: 18,fontWeight: FontWeight.w600),),
                           content: Text("Are you sure you want to log out?",style: TextStyle(color: Theme.of(context).colorScheme.secondary),),
                           actions: [
                             TextButton(
