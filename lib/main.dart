@@ -4,6 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/auth/auth.dart';
 import 'package:trible/data/community_data.dart';
+import 'package:trible/provider/profile_image.dart';
 import 'package:trible/screens/home.dart';
 import 'package:trible/screens/splash.dart';
 import 'package:trible/themes/theme_provider.dart';
@@ -22,6 +23,7 @@ void main() async {
     MultiProvider(providers:[
       ChangeNotifierProvider(create: (context)=> ThemeProvider()),
       ChangeNotifierProvider(create: (context)=>CommunityData()),
+      ChangeNotifierProvider(create: (context)=> ProfileImageProvider())
 
       
     ],

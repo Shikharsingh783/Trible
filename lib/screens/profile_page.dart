@@ -2,9 +2,12 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:trible/provider/profile_image.dart';
 import 'package:trible/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +20,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   Uint8List? _image;
+   String? profileImageUrl; // Variable to hold the image URL
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -31,6 +35,23 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     getCurrentUser();
+    getCurrentProfile();
+  }
+
+
+  void getCurrentProfile() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      // Fetch profile image URL from Firebase Storage
+      Reference storageReference = FirebaseStorage.instance.ref().child('profile_images/${user.uid}.jpg');
+      String downloadURL = await storageReference.getDownloadURL();
+
+      setState(() {
+        profileImageUrl = downloadURL;
+      });
+    }
+
+    
   }
 
   void getCurrentUser() async {
@@ -73,21 +94,31 @@ class _ProfilePageState extends State<ProfilePage> {
   try {
     // Check if an image is selected
     if (_image != null) {
-      // Get a reference to the storage bucket
-      firebase_storage.Reference storageReference = firebase_storage.FirebaseStorage.instance.ref().child('profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      User? user = _auth.currentUser;
+      if (user != null) {
+        // Get a reference to the storage bucket with UID as filename
+        Reference storageReference = FirebaseStorage.instance
+            .ref()
+            .child('profile_images/${user.uid}.jpg');
 
-      // Upload the file to Firebase Storage
-      await storageReference.putData(_image!);
+        // Upload the file to Firebase Storage
+        UploadTask uploadTask = storageReference.putData(_image!);
 
-      // Get the download URL of the uploaded image
-      String imageUrl = await storageReference.getDownloadURL();
+        // Await the completion of the upload task
+        await uploadTask.whenComplete(() async {
+          // Get the download URL of the uploaded image
+          String imageUrl = await storageReference.getDownloadURL();
 
-      // Update the user's profile with the image URL or save it as needed
-      // For example, you can save the URL in Firestore
-      // firestore.collection('users').doc(user.uid).update({'profileImageUrl': imageUrl});
+          // Update the user's profile with the image URL or save it as needed
+          // For example, you can save the URL in Firestore
+          // FirebaseFirestore.instance.collection('users').doc(user.uid).update({'profileImageUrl': imageUrl});
 
-      // Show a success message or perform any other actions
-      print('Image uploaded successfully. URL: $imageUrl');
+          // Show a success message or perform any other actions
+          print('Image uploaded successfully. URL: $imageUrl');
+        });
+      } else {
+        print('User not logged in');
+      }
     } else {
       // Handle case when no image is selected
       print('No image selected');
@@ -98,12 +129,14 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
+
   void selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
       _image = img;
     });
 
+    uploadImage();
 
   }
 
@@ -148,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     _image != null
                         ? CircleAvatar(
                             radius: 70,
-                            backgroundImage: MemoryImage(_image!),
+                            backgroundImage: NetworkImage(profileImageUrl!),
                           )
                         : const CircleAvatar(
                             radius: 70,
@@ -330,6 +363,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
+            
           ],
         ),
       ),

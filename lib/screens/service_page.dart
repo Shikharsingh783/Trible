@@ -4,11 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:trible/components/my_drawer.dart';
 import 'package:trible/components/sliverAppBar.dart';
 import 'package:trible/components/widgets/buy_page.dart';
-import 'package:trible/data/community_data.dart';
 import 'package:trible/database/service_Database.dart';
 
 class ServicePage extends StatefulWidget {
