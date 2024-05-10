@@ -66,83 +66,85 @@ class BuyPage extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: const BoxDecoration(color: Colors.white),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left:18,top:10),
-                          child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                              Text(service??"",style: const TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.w700),),
-                           const SizedBox(height: 2,),
-                           Text("offered by $creator",style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w300,color: Colors.black),),
-                           ],
-                          ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left:18,top:10),
+                        child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                            Text(service??"",style: const TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.w700),),
+                         const SizedBox(height: 2,),
+                         Text("offered by $creator",style: const TextStyle(fontSize: 16,fontWeight: FontWeight.w300,color: Colors.black),),
+                         ],
                         ),
-                         SizedBox(
+                      ),
+                       Padding(
+                         padding: const EdgeInsets.all(16.0),
+                         child: SizedBox(
                            width: 400,
                            height: 300,
                            child: Image.asset(imagePath??"")),
-                         Padding(
-                           padding: EdgeInsets.only(left:mq.width*.04,top: mq.height*.014),
-                           child: Row(
-                             children: [
-                               const Text("Service Details",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.black),),
-                               Padding(
-                                 padding: EdgeInsets.only(left:mq.width*.28),
-                                 child: RatingBar.builder(
-                                  initialRating: 2,
-                                  unratedColor: Colors.grey.shade300,
-                                   itemSize: 25,
-                                   itemBuilder: (context, _) => Icon(
-                                   Icons.star,
-                                   color: Theme.of(context).colorScheme.primary
-                                 ), onRatingUpdate: (rating) {
-                                 
-                                 },),
-                               )
-                             ],
-                           ),
+                       ),
+                       Padding(
+                         padding: EdgeInsets.only(left:mq.width*.04,top: mq.height*.014),
+                         child: Row(
+                           children: [
+                             const Text("Service Details",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.black),),
+                             Padding(
+                               padding: EdgeInsets.only(left:mq.width*.28),
+                               child: RatingBar.builder(
+                                initialRating: 2,
+                                unratedColor: Colors.grey.shade300,
+                                 itemSize: 25,
+                                 itemBuilder: (context, _) => Icon(
+                                 Icons.star,
+                                 color: Theme.of(context).colorScheme.primary
+                               ), onRatingUpdate: (rating) {
+                               
+                               },),
+                             )
+                           ],
                          ),
-                         const SizedBox(height: 5,),
-                         Padding(
-                           padding: EdgeInsets.only(left:mq.width*.07),
-                           child: const Column(
-                             children: [
-                               Text("Point 1",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
-                               Text("Point 2",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
-                               Text("Point 3",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
-                               Text("Point 4",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
-                             ],
-                           ),
+                       ),
+                       const SizedBox(height: 5,),
+                       Padding(
+                         padding: EdgeInsets.only(left:mq.width*.07,right: 180),
+                         child: const Column(
+                           children: [
+                             Text("Get a fully functioning end to end ecommerce website that is highly scalable",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
+                            //  Text("Point 2",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
+                            //  Text("Point 3",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
+                            //  Text("Point 4",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight:FontWeight.w400),),
+                           ],
                          ),
-                         Padding(
-                           padding: EdgeInsets.only(left:mq.width*.04,top: mq.height*.015),
-                           child: const Text("Testimonials",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight:FontWeight.w500 ),),
-                         ),
-                         const SizedBox(height: 40),
-                      ],
-                    ),
-                      const Divider(
-                                          indent: 0,
-                                          endIndent: 0,
-                                          thickness: 1.5,
-                                          color: Colors.grey,
-                             ),
-                             Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left:mq.width*.04),
-                                  child: Text('₹ ${price??''}',style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.black),),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left:mq.width*.37,top:mq.height*.005),
-                                  child: GestureDetector(
+              ),
+              // Padding(
+              //   padding: EdgeInsets.only(left:mq.width*.04,top: mq.height*.015),
+              //   child: const Text("Testimonials",style: TextStyle(color: Colors.black,fontSize: 20,fontWeight:FontWeight.w500 ),),
+              // ),
+              const SizedBox(height: 40),
+                    ],
+                  ),
+                        const Divider(
+                            indent: 0,
+                            endIndent: 0,
+                            thickness: 1.5,
+                            color: Colors.grey,
+                                          ),
+                      Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left:mq.width*.04),
+                          child: Text('₹ ${price??''}',style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600,color: Colors.black),),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left:mq.width*.37,top:mq.height*.005),
+                          child: GestureDetector(
                                     onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage(imageUrl: imagePath.toString(), service: service.toString(), creator: creator.toString(), price: price.toString(),)));},
                                     child: Container(
                                       height: 51,
@@ -150,17 +152,17 @@ class BuyPage extends StatelessWidget {
                                       decoration: BoxDecoration(color: const Color.fromRGBO(0, 224, 145, 1),borderRadius: BorderRadius.circular(5)),
                                       child: const Center(child: Text("Hire Now",style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w600),)),
                                     ),
-                                  ),
-                                
-                                ),
-                                                       
-                                                 ],
-                             ),
-                  ],
-                ),
+                          ),
+                        
+                              ),
+                                                     
+                                               ],
+                           ),
+                ],
               ),
             ),
-          )
+          ),
+         
         ],
       ),
 
