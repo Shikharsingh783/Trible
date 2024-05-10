@@ -6,8 +6,9 @@ class PaymentPage extends StatelessWidget {
   final String service;
   final String creator;
   final String price;
+  final String community;
 
-  const PaymentPage({Key? key, required this.imageUrl, required this.service, required this.creator, required this.price}) : super(key: key);
+  const PaymentPage({Key? key, required this.imageUrl, required this.service, required this.creator, required this.price, required this.community}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class PaymentPage extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: Column(
@@ -90,7 +91,7 @@ class PaymentPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(bottom: 70),
-                    child: MySlide(),
+                    child: MySlide(community: community,creator: creator,),
                   ),
                 ],
               ),

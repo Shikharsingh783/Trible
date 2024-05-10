@@ -2,12 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
-import 'package:trible/auth/auth.dart';
 import 'package:trible/data/community_data.dart';
 import 'package:trible/provider/profile_image.dart';
 import 'package:trible/screens/home.dart';
-import 'package:trible/screens/splash.dart';
 import 'package:trible/themes/theme_provider.dart';
+
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 
 void main() async {
@@ -18,12 +18,13 @@ void main() async {
 
   // Initialize Firebase
   await Firebase.initializeApp();
-  
+
   runApp(
     MultiProvider(providers:[
       ChangeNotifierProvider(create: (context)=> ThemeProvider()),
       ChangeNotifierProvider(create: (context)=>CommunityData()),
-      ChangeNotifierProvider(create: (context)=> ProfileImageProvider())
+      ChangeNotifierProvider(create: (context)=> ProfileImageProvider()),
+       Provider<RouteObserver<PageRoute>>(create: (_) => routeObserver),
 
       
     ],
@@ -46,9 +47,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
      theme: Provider.of<ThemeProvider>(context).themeData,
-       home: const home()
+       home: const home(),
       //ServiceCard(imagePath: "images/s1.png", service: "Responsive web design")
       // ServicePage(title: 'Website Development', community: 'School Community', i1: 'images/S1.png', s1: 'Responsive web design',)
+      navigatorObservers: [routeObserver],
     );
   }
 }

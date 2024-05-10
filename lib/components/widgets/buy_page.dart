@@ -145,7 +145,7 @@ class BuyPage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left:mq.width*.37,top:mq.height*.005),
                           child: GestureDetector(
-                                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage(imageUrl: imagePath.toString(), service: service.toString(), creator: creator.toString(), price: price.toString(),)));},
+                                    onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage(imageUrl: imagePath.toString(), service: service.toString(), creator: creator.toString(), price: price.toString(), community: community.toString(),)));},
                                     child: Container(
                                       height: 51,
                                       width: 136,

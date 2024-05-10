@@ -1,21 +1,39 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-
-
 import 'package:slide_to_act/slide_to_act.dart';
+import 'package:trible/main.dart';
+import 'package:trible/models/community.dart';
+import 'package:trible/screens/service_page.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 
 class MySlide extends StatefulWidget {
-  const MySlide({Key? key});
+  final String community;
+  final String creator;
+  const MySlide({Key? key, required this.community, required this.creator});
 
   @override
   State<MySlide> createState() => _MySlideState();
 }
 
 
-class _MySlideState extends State<MySlide> {
+class _MySlideState extends State<MySlide> with RouteAware {
+
+@override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context) as PageRoute?;
+    if (route != null) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,7 +47,8 @@ class _MySlideState extends State<MySlide> {
         borderRadius: 15,
         onSubmit: () {
           launchUrlString('https://buy.stripe.com/test_fZe6pXcNbduG1qgbIS');
-          // Navigator.pop(context);
+          
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ServicePage(communityName: widget.community, creatorName: widget.creator)));
         },
        
       ),
@@ -65,6 +84,15 @@ class _MySlideState extends State<MySlide> {
 //       rethrow;
 //     }
 // }
+ @override
+  void didPopNext() {
+    // This method is called when the user returns to the app after closing the link
+    // Navigate to a different page here
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ServicePage(communityName: widget.community, creatorName: widget.creator,)),
+    );
+  }
 
 
 }
