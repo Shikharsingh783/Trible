@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:trible/data/community_data.dart';
+import 'package:trible/firebase_options.dart';
 import 'package:trible/provider/profile_image.dart';
 import 'package:trible/screens/home.dart';
 import 'package:trible/themes/theme_provider.dart';
@@ -17,7 +18,7 @@ void main() async {
   await Stripe.instance.applySettings();
 
   // Initialize Firebase
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     MultiProvider(providers:[
