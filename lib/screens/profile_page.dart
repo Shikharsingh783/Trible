@@ -6,8 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:trible/provider/profile_image.dart';
 import 'package:trible/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -114,18 +112,14 @@ class _ProfilePageState extends State<ProfilePage> {
           // FirebaseFirestore.instance.collection('users').doc(user.uid).update({'profileImageUrl': imageUrl});
 
           // Show a success message or perform any other actions
-          print('Image uploaded successfully. URL: $imageUrl');
         });
       } else {
-        print('User not logged in');
       }
     } else {
       // Handle case when no image is selected
-      print('No image selected');
     }
   } catch (e) {
     // Handle any errors that occur during the upload process
-    print('Error uploading image: $e');
   }
 }
 
